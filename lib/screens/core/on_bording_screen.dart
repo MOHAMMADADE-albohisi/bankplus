@@ -11,19 +11,23 @@ class OnBordingScreen extends StatefulWidget {
 
 class _OnBordingScreenState extends State<OnBordingScreen> {
   late PageController pagecontroller;
-  int backcolor = 0;
+  int _colorPage = 0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     pagecontroller = PageController();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     pagecontroller.dispose();
     super.dispose();
   }
+
+  //***************************************************
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +40,9 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
               child: PageView(
                 physics: const BouncingScrollPhysics(),
                 controller: pagecontroller,
-                onPageChanged: (int backcolor) {
+                onPageChanged: (int colorPage) {
                   setState(() => {
-                        backcolor = backcolor,
+                    _colorPage = colorPage,
                       });
                 },
                 children: [
@@ -51,28 +55,28 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 0
+                            backgroundColor: _colorPage == 0
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 0
+                            borderColor: _colorPage == 0
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
                           ),
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 1
+                            backgroundColor: _colorPage == 1
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 1
+                            borderColor: _colorPage == 1
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
                           ),
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 2
+                            backgroundColor: _colorPage == 2
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 2
+                            borderColor: _colorPage == 2
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
@@ -111,28 +115,28 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 0
+                            backgroundColor: _colorPage == 0
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 0
+                            borderColor: _colorPage == 0
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
                           ),
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 1
+                            backgroundColor: _colorPage == 1
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 1
+                            borderColor: _colorPage == 1
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
                           ),
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 2
+                            backgroundColor: _colorPage == 2
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 2
+                            borderColor: _colorPage == 2
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
@@ -171,28 +175,28 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 0
+                            backgroundColor: _colorPage == 0
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 0
+                            borderColor: _colorPage == 0
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
                           ),
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 1
+                            backgroundColor: _colorPage == 1
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 1
+                            borderColor: _colorPage == 1
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
                           ),
                           TabPageSelectorIndicator(
-                            backgroundColor: backcolor == 2
+                            backgroundColor: _colorPage == 2
                                 ? const Color(0xFFCA50CA)
                                 : Colors.grey,
-                            borderColor: backcolor == 2
+                            borderColor: _colorPage == 2
                                 ? const Color(0xFFCA50CA)
                                 : const Color(0xFFE6E8E6),
                             size: 10,
@@ -229,7 +233,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
             Align(
               alignment: AlignmentDirectional.center,
               child: Visibility(
-                visible: backcolor < 2,
+                visible: _colorPage < 2,
                 child: TextButton(
                   onPressed: () {
                     pagecontroller.animateToPage(2,
@@ -249,7 +253,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
             ),
             const SizedBox(height: 25),
             Visibility(
-              visible: backcolor == 2,
+              visible: _colorPage == 2,
               maintainAnimation: true,
               maintainSize: true,
               maintainState: true,

@@ -1,72 +1,61 @@
 import 'package:bankplus/helpers/constexe_extenssion.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RestorePasswordScreen extends StatefulWidget {
+  const RestorePasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RestorePasswordScreen> createState() => _RestorePasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController mobileTextEditingController;
+class _RestorePasswordScreenState extends State<RestorePasswordScreen> {
   late TextEditingController passwordTextEditingController;
+  late TextEditingController confirmPasswordTextEditingController;
   late bool showpasssword = false;
-  late TapGestureRecognizer richtextcontroller;
+  late bool confirmShowpasssword = false;
 
   @override
   void initState() {
     super.initState();
-    mobileTextEditingController = TextEditingController();
     passwordTextEditingController = TextEditingController();
-    richtextcontroller = TapGestureRecognizer();
-    richtextcontroller.onTap = createnewacountclick;
+    confirmPasswordTextEditingController = TextEditingController();
   }
 
   @override
   void dispose() {
-    mobileTextEditingController.dispose();
     passwordTextEditingController.dispose();
-    richtextcontroller.dispose();
-    super.dispose();
-  }
+    confirmPasswordTextEditingController.dispose();
 
-  void createnewacountclick() {
-    Navigator.pushNamed(context, '/regester_screen');
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'تسجيل الدخول',
+          'التحقق من الرقم',
           style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w400,
             fontSize: 16,
             color: const Color(0xFF000000),
+            fontWeight: FontWeight.w400,
           ),
         ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 9),
-          Center(
-            child: Image.asset('images/Vector.png'),
-          ),
+          const SizedBox(height: 56),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'رقم الهوية',
+              '  انشأ كلمة مرور جديدة آمنة ويسهل تذكرها',
               style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
+                fontSize: 15,
                 color: const Color(0xFF000000),
               ),
             ),
@@ -74,36 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: TextField(
-              controller: mobileTextEditingController,
-              keyboardType: TextInputType.number,
-              style: GoogleFonts.poppins(),
-              maxLength: 9,
-              decoration: InputDecoration(
-                hintText: 'ادخل رقم الهوية',
-                hintStyle: GoogleFonts.nunitoSans(
-                    fontSize: 14,
-                    color: const Color(0xFFD2D7E9),
-                    fontWeight: FontWeight.w400),
-                counterText: '',
-                hintMaxLines: 1,
-                enabledBorder: buildOutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.grey.shade700,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'كلمة المرور',
+              'كلمة المرور الجديدة',
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -119,12 +80,16 @@ class _LoginScreenState extends State<LoginScreen> {
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
               obscureText: true,
+              maxLength: 4,
               decoration: InputDecoration(
-                hintText: 'ادخل كلمة المرور',
+                hintText: 'ادخل كلمة المرور ',
                 hintStyle: GoogleFonts.nunitoSans(
                     fontSize: 14,
                     color: const Color(0xFFD2D7E9),
                     fontWeight: FontWeight.w400),
+                counterText: '',
+                hintMaxLines: 1,
+                enabledBorder: buildOutlineInputBorder(),
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() => {showpasssword = !showpasssword});
@@ -133,8 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     showpasssword ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
-                hintMaxLines: 1,
-                enabledBorder: buildOutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade700,
@@ -146,26 +109,59 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/verify_the_number_screen');
-              },
-              child: Text(
-                'نسيت كلمة المرور؟',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                  color: const Color(0xFFCA50CA),
-                ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'تأكيد كلمة المرور',
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF000000),
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextField(
+              controller: confirmPasswordTextEditingController,
+              keyboardType: TextInputType.text,
+              style: GoogleFonts.poppins(),
+              obscureText: true,
+              maxLength: 4,
+              decoration: InputDecoration(
+                hintText: 'ادخل كلمة المرور ',
+                hintStyle: GoogleFonts.nunitoSans(
+                    fontSize: 14,
+                    color: const Color(0xFFD2D7E9),
+                    fontWeight: FontWeight.w400),
+                counterText: '',
+                hintMaxLines: 1,
+                enabledBorder: buildOutlineInputBorder(),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(
+                        () => {confirmShowpasssword = !confirmShowpasssword});
+                  },
+                  icon: Icon(
+                    confirmShowpasssword
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey.shade700,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              ),
+            ),
+          ),
+          const SizedBox(height: 24),
           Visibility(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -187,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     elevation: 0,
                   ),
                   child: Text(
-                    'تسجيل الدخول',
+                    'ارسال',
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -198,28 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 12),
-          Center(
-            child: RichText(
-              text: TextSpan(
-                  text: 'هل ليس لديك حساب؟  ',
-                  style: GoogleFonts.nunito(
-                    color: Colors.grey.shade700,
-                  ),
-                  children: [
-                    TextSpan(
-                        text: 'سجل الان',
-                        recognizer: richtextcontroller,
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: const Color(0xFFCA50CA),
-                          fontWeight: FontWeight.bold,
-                          decorationStyle: TextDecorationStyle.solid,
-                          decoration: TextDecoration.underline,
-                        ))
-                  ]),
-            ),
-          ),
+          const SizedBox(height: 24),
         ],
       ),
     );
@@ -239,8 +214,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _checkData() {
-    if (mobileTextEditingController.text.isNotEmpty &&
-        passwordTextEditingController.text.isNotEmpty) {
+    if (passwordTextEditingController.text.isNotEmpty &&
+        confirmPasswordTextEditingController.text.isNotEmpty) {
       return true;
     }
 
@@ -249,6 +224,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> login() async {
-   //
+    Navigator.pushReplacementNamed(context, '/login_screen');
   }
 }

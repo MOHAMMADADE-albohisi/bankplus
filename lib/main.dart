@@ -1,5 +1,6 @@
 import 'package:bankplus/screens/auth/login_screen.dart';
 import 'package:bankplus/screens/auth/regester_screen.dart';
+import 'package:bankplus/screens/auth/restore_password_screen.dart';
 import 'package:bankplus/screens/auth/verify_the_number_screen.dart';
 import 'package:bankplus/screens/core/lunch_screen.dart';
 import 'package:bankplus/screens/core/on_bording_screen.dart';
@@ -17,13 +18,14 @@ class BankPlus extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: '/login_screen',
+      initialRoute: '/lunch_screen',
       routes: {
         '/lunch_screen': (context) => const LunchScreen(),
         '/boarding_screen': (context) => const OnBordingScreen(),
         '/login_screen': (context) => const LoginScreen(),
         '/verify_the_number_screen': (context) => const VerifyTheNumberScreen(),
         '/regester_screen': (context) => const RegesterScreen(),
+        '/restore_password_screen': (context) => const RestorePasswordScreen(),
       },
     );
   }
