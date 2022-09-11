@@ -1,3 +1,4 @@
+import 'package:bankplus/screens/user/app/bpttom_screen.dart';
 import 'package:bankplus/screens/user/app/loan_screen/loan_request_screen.dart';
 import 'package:bankplus/screens/user/app/loan_screen/successful_operation_screen.dart';
 import 'package:bankplus/screens/user/auth/regester_screen.dart';
@@ -20,7 +21,7 @@ class BankPlus extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/successful_operation_screen',
+      initialRoute: '/_home_birds_screenState',
       routes: {
         '/lunch_screen': (context) => const LunchScreen(),
         '/boarding_screen': (context) => const OnBordingScreen(),
@@ -32,6 +33,7 @@ class BankPlus extends StatelessWidget {
         '/home_screen': (context) => const HomeScreen(),
         '/loan_request_screen': (context) => const LoanRequestScreen(),
         '/successful_operation_screen': (context) => const SuccessfulOperationScreen(),
+        '/_home_birds_screenState': (context) => const HomeBirdsScreen( ),
       },
     );
   }
