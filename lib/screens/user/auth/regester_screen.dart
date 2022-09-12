@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:bankplus/database/controllers/user_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
+import 'package:bankplus/model_db/process_response.dart';
+import 'package:bankplus/model_db/regester_user.dart';
 import 'package:bankplus/model_ui/country.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +25,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
   late TextEditingController _numberAcountTextEditingController;
   late bool showpasssword = false;
   late TapGestureRecognizer richtextcontroller;
-  String? _gender = 'M';
+  late String? gender = 'M';
   int? _selectedcountryid;
 
   @override
@@ -86,6 +89,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                 child: Stack(
                   children: [
                     Container(
+                      clipBehavior: Clip.antiAlias,
                       constraints: const BoxConstraints(
                         maxHeight: 90,
                         maxWidth: 90,
@@ -95,7 +99,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                         shape: BoxShape.circle,
                         color: Colors.grey,
                       ),
-                      child: Image.asset("imags/select_img.svg"),
+                      child: Image.asset('images/mohammad.jpeg'),
                     ),
                     const PositionedDirectional(
                       bottom: 0,
@@ -136,7 +140,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TextField(
-              controller: _mobileTextEditingController,
+              controller: _idTextEditingController,
               keyboardType: TextInputType.number,
               style: GoogleFonts.poppins(),
               maxLength: 9,
@@ -254,9 +258,9 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       style: GoogleFonts.poppins(),
                     ),
                     value: 'M',
-                    groupValue: _gender,
+                    groupValue: gender,
                     onChanged: (String? value) {
-                      setState(() => _gender = value);
+                      setState(() => gender = value);
                     },
                   ),
                 ),
@@ -274,9 +278,9 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       style: GoogleFonts.poppins(),
                     ),
                     value: 'F',
-                    groupValue: _gender,
+                    groupValue: gender,
                     onChanged: (String? value) {
-                      setState(() => _gender = value);
+                      setState(() => gender = value);
                     },
                   ),
                 ),
@@ -299,7 +303,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TextField(
-              controller: _idTextEditingController,
+              controller: _mobileTextEditingController,
               keyboardType: TextInputType.number,
               style: GoogleFonts.poppins(),
               decoration: InputDecoration(
@@ -594,7 +598,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
 
   Future<void> performaLogin() async {
     if (_checkData()) {
-      login();
+      regester();
     }
   }
 
@@ -612,7 +616,29 @@ class _RegesterScreenState extends State<RegesterScreen> {
     return false;
   }
 
-  Future<void> login() async {
-    //
+  Future<void> regester() async {
+    processResponse ProcessResponse =
+        await UserDbController().register(user: user);
+    if (ProcessResponse.success) {
+      Navigator.pop(context);
+    }
+    // ignore: use_build_context_synchronously
+    context.ShowSnakBar(
+      message: ProcessResponse.message,
+      error: !ProcessResponse.success,
+    );
+  }
+
+  User get user {
+
+    User user = User();
+    user.identification = _idTextEditingController.text;
+    user.name = _nameTextEditingController.text;
+    user.email = _emailTextEditingController.text;
+    user.password = _passwordTextEditingController.text;
+    user.phoneNumber = _mobileTextEditingController.text;
+    user.accountNumber = _numberAcountTextEditingController.text;
+
+    return user;
   }
 }

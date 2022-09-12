@@ -1,3 +1,5 @@
+import 'package:bankplus/Prefs/shared_preferences.dart';
+import 'package:bankplus/database/db_controller.dart';
 import 'package:bankplus/screens/admin/app/bottom_navigation_admin_screen.dart';
 import 'package:bankplus/screens/admin/app/home_admin_screen.dart';
 import 'package:bankplus/screens/admin/app/list_admin_screen.dart';
@@ -23,7 +25,10 @@ import 'package:bankplus/screens/welcom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefController().initPreferTest();
+  await DbController().initDatabase();
   runApp(const BankPlus());
 }
 
@@ -55,12 +60,14 @@ class BankPlus extends StatelessWidget {
 
         '/home_screen': (context) => const HomeScreen(),
         '/loan_request_screen': (context) => const LoanRequestScreen(),
-        '/successful_operation_screen': (context) =>const SuccessfulOperationScreen(),
+        '/successful_operation_screen': (context) =>
+            const SuccessfulOperationScreen(),
         '/_home_birds_screenState': (context) => const HomeBirdsScreen(),
         '/profile_screen': (context) => const ProfileScreen(),
         '/list_screen': (context) => const ListScreen(),
         '/bottom_navigatio_screen': (context) => const BottomNavigationScreen(),
-        '/complaints_proposals_screen': (context) => const ComplaintsProposalsScreen(),
+        '/complaints_proposals_screen': (context) =>
+            const ComplaintsProposalsScreen(),
         '/notifications_screen': (context) => const NotificationsScreen(),
         //*************************************************************************************
         '/login_admin_screen': (context) => const LoginAdminScreen(),
@@ -68,13 +75,11 @@ class BankPlus extends StatelessWidget {
         '/order_details_screen': (context) => const OrderDetailsScreen(),
         '/mission_screen': (context) => const MissionScreen(),
         '/list_admin_screen': (context) => const ListAdminScreen(),
-        '/complaints_admin_proposals_screen': (context) => const BottomAdminNavigationScreen(),
+        '/complaints_admin_proposals_screen': (context) =>
+            const BottomAdminNavigationScreen(),
 
-
-        '/complaints_admin_proposals_screen': (context) => const welcom_screen(),
-
-
-
+        '/complaints_admin_proposals_screen': (context) =>
+            const welcom_screen(),
       },
     );
   }

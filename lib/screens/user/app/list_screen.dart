@@ -1,3 +1,4 @@
+import 'package:bankplus/Prefs/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -96,13 +97,11 @@ class _ListScreenState extends State<ListScreen> {
           ),
           const SizedBox(height: 362),
           InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/login_screen');
-            },
+            onTap: () => _confirmeLogoute(),
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () => _confirmeLogoute(),
                   icon: const Icon(Icons.logout),
                   color: const Color(0xFFCA50CA),
                 ),
@@ -121,5 +120,71 @@ class _ListScreenState extends State<ListScreen> {
         ],
       ),
     );
+  }
+
+  void _confirmeLogoute() async {
+    bool? result = await showDialog<bool>(
+      //***********************************************
+      //لعدم اغلاق الايقونة من الضغط خارجها
+      // barrierDismissible: false,
+      //للتحكم بلون الخلفية
+      // barrierColor: Colors.red.shade300.withOpacity(0.5),
+      //***********************************************
+
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'تسجيل الخروج',
+            style: GoogleFonts.cairo(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          content: Text(
+            'هل انت متاكد من تسجيل الخروج',
+            style: GoogleFonts.cairo(
+              fontSize: 13,
+              color: Colors.black45,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: Text(
+                'تسجيل الخروج',
+                style: GoogleFonts.cairo(
+                  fontSize: 12,
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: Text(
+                'لا',
+                style: GoogleFonts.cairo(
+                  fontSize: 12,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result ?? false) {
+      bool remove =
+          await SharedPrefController().removeValueFor(savedata.logedInd.name);
+          await SharedPrefController().claer();
+      if (remove) {
+        Navigator.pushReplacementNamed(context, '/login_screen');
+      }
+    }
   }
 }

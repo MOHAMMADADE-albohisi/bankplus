@@ -1,4 +1,6 @@
+import 'package:bankplus/database/controllers/user_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
+import 'package:bankplus/model_db/process_response.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -248,6 +250,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> login() async {
-   Navigator.pushReplacementNamed(context, '/bottom_navigatio_screen');
+    // ignore: non_constant_identifier_names
+    processResponse ProcessResponse = await UserDbController().login(
+        identification: mobileTextEditingController.text,
+        password: passwordTextEditingController.text);
+    if (ProcessResponse.success) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, '/bottom_navigatio_screen');
+    }
+    // ignore: use_build_context_synchronously
+    context.ShowSnakBar(
+      message: ProcessResponse.message,
+      error: !ProcessResponse.success,
+    );
   }
 }

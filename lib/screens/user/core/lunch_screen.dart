@@ -1,3 +1,4 @@
+import 'package:bankplus/Prefs/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,9 +14,15 @@ class _LunchScreenState extends State<LunchScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/boarding_screen');
-    });
+    Future.delayed(
+      const Duration(seconds: 3),
+          () {
+        bool loggedIn =
+            SharedPrefController().getValueFor<bool>(savedata.logedInd.name) ?? false;
+        String routes = loggedIn ? '/bottom_navigatio_screen ' : '/complaints_admin_proposals_screen';
+        Navigator.pushReplacementNamed(context, routes);
+      },
+    );
   }
 
   @override
