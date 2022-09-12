@@ -26,9 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
-          const SizedBox(height: 72),
+          const SizedBox(height: 16),
           Row(
             children: [
               Padding(
@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
-                  height: 240,
+                  height: 230,
                   child: GridView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,

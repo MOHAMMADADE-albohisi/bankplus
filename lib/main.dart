@@ -1,6 +1,10 @@
+import 'package:bankplus/screens/user/app/bottom_navigation_screen.dart';
 import 'package:bankplus/screens/user/app/bpttom_screen.dart';
+import 'package:bankplus/screens/user/app/complaints_proposals_screen.dart';
+import 'package:bankplus/screens/user/app/list_screen.dart';
 import 'package:bankplus/screens/user/app/loan_screen/loan_request_screen.dart';
 import 'package:bankplus/screens/user/app/loan_screen/successful_operation_screen.dart';
+import 'package:bankplus/screens/user/app/settings/notifications_screen.dart';
 import 'package:bankplus/screens/user/app/settings/profile_screen.dart';
 import 'package:bankplus/screens/user/auth/regester_screen.dart';
 import 'package:bankplus/screens/user/auth/restore_password_screen.dart';
@@ -33,7 +37,7 @@ class BankPlus extends StatelessWidget {
         Locale('en'),
       ],
       locale: const Locale('ar'),
-      initialRoute: '/profile_screen',
+      initialRoute: '/notifications_screen',
       routes: {
         '/lunch_screen': (context) => const LunchScreen(),
         '/boarding_screen': (context) => const OnBordingScreen(),
@@ -41,12 +45,17 @@ class BankPlus extends StatelessWidget {
         '/verify_the_number_screen': (context) => const VerifyTheNumberScreen(),
         '/regester_screen': (context) => const RegesterScreen(),
         '/restore_password_screen': (context) => const RestorePasswordScreen(),
+
         '/home_screen': (context) => const HomeScreen(),
         '/loan_request_screen': (context) => const LoanRequestScreen(),
-        '/successful_operation_screen': (context) =>
-            const SuccessfulOperationScreen(),
+        '/successful_operation_screen': (context) =>const SuccessfulOperationScreen(),
         '/_home_birds_screenState': (context) => const HomeBirdsScreen(),
         '/profile_screen': (context) => const ProfileScreen(),
+        '/list_screen': (context) => const ListScreen(),
+        '/bottom_navigatio_screen': (context) => const BottomNavigationScreen(),
+        '/complaints_proposals_screen': (context) => const ComplaintsProposalsScreen(),
+
+        '/notifications_screen': (context) => const NotificationsScreen(),
       },
     );
   }

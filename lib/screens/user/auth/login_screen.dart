@@ -53,8 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
           const SizedBox(height: 9),
           Center(

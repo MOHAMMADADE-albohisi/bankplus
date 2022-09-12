@@ -13,17 +13,18 @@ class HomeBirdsScreen extends StatefulWidget {
 // ignore: camel_case_types
 class _HomeBirdsScreenState extends State<HomeBirdsScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _mohammad;
+
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _mohammad = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
   void dispose() {
-    _mohammad.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -63,7 +64,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                   color: Color(0xFFD9D9D9),
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
-                controller: _mohammad,
+                controller: _tabController,
                 labelColor: const Color(0xFF000000),
                 tabs: const [
                   Tab(
@@ -78,7 +79,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
           ),
           Expanded(
             child: TabBarView(
-              controller: _mohammad,
+              controller: _tabController,
               children: const [
                 home_bottome_widget(
                     image: 'coin',
@@ -109,7 +110,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                     date: '22/10/2022'),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

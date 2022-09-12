@@ -58,11 +58,11 @@ class home_bottome_widget extends StatelessWidget {
                                   fontSize: 12,
                                   color: const Color(0xFF000000)),
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: 2),
                             Row(
                               children: [
                                  Text('$titel'),
-                                const SizedBox(width: 30),
+                                const SizedBox(width: 15),
                                 Text(
                                   '$datename',
                                   style: GoogleFonts.poppins(

@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ];
 
   void createnewacountclick() {
-    Navigator.pushNamed(context, '/login_screen');
+    //
   }
 
   @override

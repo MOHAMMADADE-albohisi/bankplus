@@ -82,23 +82,41 @@ class _RegesterScreenState extends State<RegesterScreen> {
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 20),
-              child: Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(80),
-                  color: Colors.grey.shade300,
+              child: Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(
+                        maxHeight: 90,
+                        maxWidth: 90,
+                      ),
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey,
+                      ),
+                      child: Image.asset("imags/select_img.svg"),
+                    ),
+                    const PositionedDirectional(
+                      bottom: 0,
+                      end: 0,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(4),
+                          child: Icon(
+                            size: 17,
+                            Icons.camera_alt_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                child: (IconButton(
-                  onPressed: () {
-                    //
-                  },
-                  icon: const Icon(
-                    Icons.add_a_photo,
-                    size: 30,
-                    color: Colors.black,
-                  ),
-                )),
               ),
             ),
           ),
