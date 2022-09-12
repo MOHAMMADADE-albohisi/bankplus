@@ -86,7 +86,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                 child: Stack(
                   children: [
                     Container(
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxHeight: 90,
                         maxWidth: 90,
                       ),

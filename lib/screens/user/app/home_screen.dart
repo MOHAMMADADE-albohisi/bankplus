@@ -11,6 +11,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
 
+
+
+
+
   @override
   void initState() {
     super.initState();
@@ -86,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPageChanged: (int pageIndex) {},
                 itemBuilder: (context, index) {
                   return Card(
-                    // المسافة بين الصورتين
                     margin:
                         EdgeInsetsDirectional.only(end: index != 2 ? 10 : 0),
                     child: Image.asset(

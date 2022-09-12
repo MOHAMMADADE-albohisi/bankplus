@@ -1,3 +1,6 @@
+import 'package:bankplus/screens/admin/app/home_admin_screen.dart';
+import 'package:bankplus/screens/admin/app/order_details_screen.dart';
+import 'package:bankplus/screens/admin/auth_admin/login_admin_screen.dart';
 import 'package:bankplus/screens/user/app/bottom_navigation_screen.dart';
 import 'package:bankplus/screens/user/app/bpttom_screen.dart';
 import 'package:bankplus/screens/user/app/complaints_proposals_screen.dart';
@@ -37,7 +40,7 @@ class BankPlus extends StatelessWidget {
         Locale('en'),
       ],
       locale: const Locale('ar'),
-      initialRoute: '/lunch_screen',
+      initialRoute: '/order_details_screen',
       routes: {
         '/lunch_screen': (context) => const LunchScreen(),
         '/boarding_screen': (context) => const OnBordingScreen(),
@@ -45,7 +48,6 @@ class BankPlus extends StatelessWidget {
         '/verify_the_number_screen': (context) => const VerifyTheNumberScreen(),
         '/regester_screen': (context) => const RegesterScreen(),
         '/restore_password_screen': (context) => const RestorePasswordScreen(),
-
         '/home_screen': (context) => const HomeScreen(),
         '/loan_request_screen': (context) => const LoanRequestScreen(),
         '/successful_operation_screen': (context) =>const SuccessfulOperationScreen(),
@@ -54,8 +56,14 @@ class BankPlus extends StatelessWidget {
         '/list_screen': (context) => const ListScreen(),
         '/bottom_navigatio_screen': (context) => const BottomNavigationScreen(),
         '/complaints_proposals_screen': (context) => const ComplaintsProposalsScreen(),
-
         '/notifications_screen': (context) => const NotificationsScreen(),
+        //*************************************************************************************
+        '/login_admin_screen': (context) => const LoginAdminScreen(),
+        '/home_admin_screen': (context) => const HomeAdminScreen(),
+        '/order_details_screen': (context) => const OrderDetailsScreen(),
+
+
+
       },
     );
   }
