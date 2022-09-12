@@ -1,4 +1,7 @@
+import 'package:bankplus/screens/admin/app/bottom_navigation_admin_screen.dart';
 import 'package:bankplus/screens/admin/app/home_admin_screen.dart';
+import 'package:bankplus/screens/admin/app/list_admin_screen.dart';
+import 'package:bankplus/screens/admin/app/mission_screen.dart';
 import 'package:bankplus/screens/admin/app/order_details_screen.dart';
 import 'package:bankplus/screens/admin/auth_admin/login_admin_screen.dart';
 import 'package:bankplus/screens/user/app/bottom_navigation_screen.dart';
@@ -16,6 +19,7 @@ import 'package:bankplus/screens/user/app/home_screen.dart';
 import 'package:bankplus/screens/user/auth/login_screen.dart';
 import 'package:bankplus/screens/user/core/lunch_screen.dart';
 import 'package:bankplus/screens/user/core/on_bording_screen.dart';
+import 'package:bankplus/screens/welcom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -40,7 +44,7 @@ class BankPlus extends StatelessWidget {
         Locale('en'),
       ],
       locale: const Locale('ar'),
-      initialRoute: '/order_details_screen',
+      initialRoute: '/lunch_screen',
       routes: {
         '/lunch_screen': (context) => const LunchScreen(),
         '/boarding_screen': (context) => const OnBordingScreen(),
@@ -48,6 +52,7 @@ class BankPlus extends StatelessWidget {
         '/verify_the_number_screen': (context) => const VerifyTheNumberScreen(),
         '/regester_screen': (context) => const RegesterScreen(),
         '/restore_password_screen': (context) => const RestorePasswordScreen(),
+
         '/home_screen': (context) => const HomeScreen(),
         '/loan_request_screen': (context) => const LoanRequestScreen(),
         '/successful_operation_screen': (context) =>const SuccessfulOperationScreen(),
@@ -61,6 +66,12 @@ class BankPlus extends StatelessWidget {
         '/login_admin_screen': (context) => const LoginAdminScreen(),
         '/home_admin_screen': (context) => const HomeAdminScreen(),
         '/order_details_screen': (context) => const OrderDetailsScreen(),
+        '/mission_screen': (context) => const MissionScreen(),
+        '/list_admin_screen': (context) => const ListAdminScreen(),
+        '/complaints_admin_proposals_screen': (context) => const BottomAdminNavigationScreen(),
+
+
+        '/complaints_admin_proposals_screen': (context) => const welcom_screen(),
 
 
 

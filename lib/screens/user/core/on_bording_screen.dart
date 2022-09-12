@@ -272,7 +272,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/login_screen');
+                      Navigator.pushReplacementNamed(context, '/complaints_admin_proposals_screen');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.transparent,

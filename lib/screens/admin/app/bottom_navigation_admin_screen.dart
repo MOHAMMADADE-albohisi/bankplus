@@ -1,27 +1,27 @@
 import 'package:bankplus/model_ui/bn_screen.dart';
-import 'package:bankplus/screens/user/app/bpttom_screen.dart';
-import 'package:bankplus/screens/user/app/home_screen.dart';
+import 'package:bankplus/screens/admin/app/home_admin_screen.dart';
+import 'package:bankplus/screens/admin/app/list_admin_screen.dart';
+import 'package:bankplus/screens/admin/app/mission_screen.dart';
+import 'package:bankplus/screens/admin/app/order_details_screen.dart';
 import 'package:bankplus/screens/user/app/settings/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'list_screen.dart';
-
-class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({Key? key}) : super(key: key);
+class BottomAdminNavigationScreen extends StatefulWidget {
+  const BottomAdminNavigationScreen({Key? key}) : super(key: key);
 
   @override
-  State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
+  State<BottomAdminNavigationScreen> createState() => _BottomAdminNavigationScreenState();
 }
 
-class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+class _BottomAdminNavigationScreenState extends State<BottomAdminNavigationScreen> {
   int _selectedPageIndex = 0;
 
   final List<BnScreen> _screens = <BnScreen>[
-    const BnScreen(title: '', widget: HomeScreen()),
-    const BnScreen(title: '', widget: HomeBirdsScreen()),
+    const BnScreen(title: '', widget: HomeAdminScreen()),
+    const BnScreen(title: '', widget: MissionScreen()),
     const BnScreen(title: '', widget: ProfileScreen()),
-    const BnScreen(title: '', widget: ListScreen()),
+    const BnScreen(title: '', widget: ListAdminScreen()),
   ];
 
   @override
@@ -64,22 +64,24 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           items: const [
             BottomNavigationBarItem(
               activeIcon: Icon(
-                Icons.home,
+                Icons.request_quote
+                ,
               ),
               icon: Icon(
-                Icons.home_outlined,
+                Icons.request_quote,
               ),
-              label: 'الرئيسية',
+              label: 'الطلبات',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.home_repair_service),
-              icon: Icon(Icons.home_repair_service_outlined),
-              label: 'خدماتي',
+              activeIcon: Icon(Icons.rule),
+              icon: Icon(Icons.rule),
+              label: 'المهام',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.person),
-              icon: Icon(Icons.person_outlined),
-              label: 'حسابي',
+              activeIcon: Icon(Icons.pivot_table_chart
+              ),
+              icon: Icon(Icons.pivot_table_chart),
+              label: 'احصائيات',
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.menu),

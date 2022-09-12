@@ -43,75 +43,113 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SizedBox(height: 60),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          const SizedBox(height: 50),
+          Row(
             children: [
-              Container(
-                height: 70,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: DropdownButton<int>(
-                    isExpanded: true,
-                    hint: const Text(
-                      'اختر الفرع',
+              Expanded(
+                child: ListTile(
+                  leading: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
                     ),
-                    style: GoogleFonts.montserrat(
-                      color: Colors.black54,
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.asset('images/mohammad.jpeg'),
+                  ),
+                  title: Text(
+                    "مرحبا محمد ",
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    onChanged: (int? value) {
-                      setState(() => _selectedcountryid = value);
-                    },
-                    //***************************************************
-                    borderRadius: BorderRadius.circular(20),
-                    dropdownColor: Colors.grey,
-                    icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                    //للتحكم بحجم القائمة
-                    itemHeight: 48,
-                    underline: const Divider(),
-                    value: _selectedcountryid,
-                    //***************************************************
-                    selectedItemBuilder: (BuildContext cotext) {
-                      return _selectedcountryid != null
-                          ? _Countryss.map(
-                              (e) => Align(
-                                alignment: AlignmentDirectional.centerStart,
-                                child: Text(
-                                  _Countryss.firstWhere((element) =>
-                                      element.id == _selectedcountryid).title,
-                                  style: GoogleFonts.montserrat(
-                                      color: Colors.grey),
-                                ),
-                              ),
-                            ).toList()
-                          : [];
-                    },
-                    //***************************************************
-                    items: _Countryss.map(
-                      (Countrysss) {
-                        return DropdownMenuItem<int>(
-                          value: Countrysss.id,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(Countrysss.title),
-                              const Divider(
-                                thickness: 0.8,
-                                color: Colors.black,
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ).toList(),
+                  ),
+                  subtitle: Text(
+                    "اهلا بك",
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ),
+
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 20),
+                      child: DropdownButton<int>(
+                        isExpanded: true,
+                        hint: const Text(
+                          'اختر الفرع',
+                        ),
+                        style: GoogleFonts.montserrat(
+                          color: Colors.black54,
+                        ),
+                        onChanged: (int? value) {
+                          setState(() => _selectedcountryid = value);
+                        },
+                        //***************************************************
+                        borderRadius: BorderRadius.circular(20),
+                        dropdownColor: Colors.grey,
+                        icon: const Icon(Icons.keyboard_arrow_down_sharp),
+                        //للتحكم بحجم القائمة
+                        itemHeight: 48,
+                        underline: const Divider(),
+                        value: _selectedcountryid,
+                        //***************************************************
+                        selectedItemBuilder: (BuildContext cotext) {
+                          return _selectedcountryid != null
+                              ? _Countryss.map(
+                                  (e) => Align(
+                                    alignment: AlignmentDirectional.centerStart,
+                                    child: Text(
+                                      _Countryss.firstWhere((element) =>
+                                              element.id == _selectedcountryid)
+                                          .title,
+                                      style: GoogleFonts.montserrat(
+                                          color: Colors.grey),
+                                    ),
+                                  ),
+                                ).toList()
+                              : [];
+                        },
+                        //***************************************************
+                        items: _Countryss.map(
+                          (Countrysss) {
+                            return DropdownMenuItem<int>(
+                              value: Countrysss.id,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(Countrysss.title),
+                                  const Divider(
+                                    thickness: 0.8,
+                                    color: Colors.black,
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
             ],
           ),
           const SizedBox(height: 12),
@@ -154,9 +192,8 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                       Navigator.pushNamed(context, '/order_details_screen');
                     },
                     child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: 5,
+                        itemCount: 50,
                         itemBuilder: (context, index) {
                           return Container(
                             height: 100,
@@ -233,7 +270,8 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                               ],
                             ),
                           );
-                        }),
+                        },
+                    ),
                   ),
                 )
               ],

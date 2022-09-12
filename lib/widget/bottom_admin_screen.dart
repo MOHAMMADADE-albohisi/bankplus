@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,9 +27,8 @@ class home_admin_widget extends StatelessWidget {
          //
         },
         child:  ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 5,
+            itemCount: 50,
             itemBuilder: (context, index) {
               return Container(
                   height: 70,
@@ -57,17 +58,17 @@ class home_admin_widget extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Text('$titel',style: GoogleFonts.poppins(),),
+                                  Text(titel,style: GoogleFonts.poppins(),),
                                   const SizedBox(width: 150),
                                   Text(
-                                    '$datename',
+                                    datename,
                                     style: GoogleFonts.poppins(
                                         fontSize: 8,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.grey),
                                   ),
                                   Text(
-                                    '$date',
+                                    date,
                                     style: GoogleFonts.poppins(
                                         fontSize: 8,
                                         fontWeight: FontWeight.w500,
@@ -76,7 +77,7 @@ class home_admin_widget extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                  '$value',
+                                  value,
                                   style: GoogleFonts.poppins(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,

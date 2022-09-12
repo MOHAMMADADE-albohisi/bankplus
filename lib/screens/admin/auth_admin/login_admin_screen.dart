@@ -226,6 +226,6 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
   }
 
   Future<void> login() async {
-    Navigator.pushReplacementNamed(context, '/bottom_navigatio_screen');
+    Navigator.pushReplacementNamed(context, '/home_admin_screen');
   }
 }
