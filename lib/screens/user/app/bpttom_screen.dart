@@ -44,7 +44,9 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/notifications_screen');
+            },
             icon: const Icon(Icons.notifications_active_outlined),
             color: const Color(0xFF060606),
           )

@@ -248,6 +248,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> login() async {
-   //
+   Navigator.pushReplacementNamed(context, '/bottom_navigatio_screen');
   }
 }

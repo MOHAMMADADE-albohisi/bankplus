@@ -95,23 +95,28 @@ class _ListScreenState extends State<ListScreen> {
             ],
           ),
           const SizedBox(height: 362),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.logout),
-                color: const Color(0xFFCA50CA),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'تسجيل الخروج',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xFF0000000),
-                  fontSize: 15,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/login_screen');
+            },
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.logout),
+                  color: const Color(0xFFCA50CA),
                 ),
-              ),
-            ],
+                const SizedBox(width: 12),
+                Text(
+                  'تسجيل الخروج',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFF0000000),
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

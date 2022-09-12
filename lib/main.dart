@@ -37,7 +37,7 @@ class BankPlus extends StatelessWidget {
         Locale('en'),
       ],
       locale: const Locale('ar'),
-      initialRoute: '/notifications_screen',
+      initialRoute: '/lunch_screen',
       routes: {
         '/lunch_screen': (context) => const LunchScreen(),
         '/boarding_screen': (context) => const OnBordingScreen(),

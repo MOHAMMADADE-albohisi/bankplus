@@ -85,7 +85,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        '|تطبيق بنكي بلس ',
+                        'تطبيق بنكي بلس ',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
