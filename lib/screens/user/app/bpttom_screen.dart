@@ -66,10 +66,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                 indicator: const BoxDecoration(
                   color: Color(0xFFD9D9D9),
                   boxShadow: [
-                    BoxShadow(
-                        offset: Offset(0, 0),
-                        color: Color(0xFF000000)
-                    )
+                    BoxShadow(offset: Offset(0, 0), color: Color(0xFF000000))
                   ],
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
@@ -96,6 +93,9 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasData) {
+                      snapshot.data!.removeWhere((element) =>
+                          element.state !=
+                          'الطلب في حالة انتظار الموافقة عليه');
                       return Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -173,24 +173,268 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                     return Center(child: Text('لا يوجد طلبات قيد الانتضار'));
                   },
                 ),
-                home_bottome_widget(
-                    image: 'coin2',
-                    titel: 'الطلب قيد المراجعة',
-                    datename: 'الاحد ',
-                    value: '3000\$',
-                    date: '22/10/2022'),
-                home_bottome_widget(
-                    image: 'coin3',
-                    titel: 'الطلب مقبول ',
-                    datename: 'الاحد ',
-                    value: '3000\$',
-                    date: '22/10/2022'),
-                home_bottome_widget(
-                    image: 'coin4',
-                    titel: 'الطلب في مرفوض',
-                    datename: 'الاحد ',
-                    value: '3000\$',
-                    date: '22/10/2022'),
+                FutureBuilder<List<Services>>(
+                  future: ServicesDbController().read(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasData) {
+                      snapshot.data!.removeWhere((element) =>
+                          element.state != 'الطلب في حالة قيد المراجعة');
+                      return Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                height: 70,
+                                margin: EdgeInsetsDirectional.only(
+                                    bottom: index == 5 ? 0 : 15),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFFF2F2F2),
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        color: Colors.black38,
+                                        blurRadius: 4,
+                                      )
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Row(
+                                    children: [
+                                      Image.asset('images/coin2.png'),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 10,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              ' ${snapshot.data![index].amount}',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                  color:
+                                                      const Color(0xFF000000)),
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Container(
+                                              width: 290,
+                                              child: Row(
+                                                children: [
+                                                  Text(snapshot
+                                                      .data![index].state),
+                                                  Spacer(),
+                                                  Text(
+                                                    snapshot.data![index].date,
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.grey),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ));
+                          },
+                        ),
+                      );
+                    }
+                    return Center(child: Text('لا يوجد طلبات قيد المراجعة'));
+                  },
+                ),
+                FutureBuilder<List<Services>>(
+                  future: ServicesDbController().read(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      snapshot.data!.removeWhere(
+                          (element) => element.state != 'الطلب مقبول');
+                      return Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                height: 70,
+                                margin: EdgeInsetsDirectional.only(
+                                    bottom: index == 5 ? 0 : 15),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFFF2F2F2),
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        color: Colors.black38,
+                                        blurRadius: 4,
+                                      )
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Row(
+                                    children: [
+                                      Image.asset('images/coin3.png'),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 10,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              ' ${snapshot.data![index].amount}',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                  color:
+                                                      const Color(0xFF000000)),
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Container(
+                                              width: 290,
+                                              child: Row(
+                                                children: [
+                                                  Text(snapshot
+                                                      .data![index].state),
+                                                  Spacer(),
+                                                  Text(
+                                                    snapshot.data![index].date,
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.grey),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ));
+                          },
+                        ),
+                      );
+                    }
+                    return Center(child: Text('لا يوجد طلبات'));
+                  },
+                ),
+                FutureBuilder<List<Services>>(
+                  future: ServicesDbController().read(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      snapshot.data!.removeWhere(
+                          (element) => element.state != 'الطلب مرفوض');
+                      return Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                height: 70,
+                                margin: EdgeInsetsDirectional.only(
+                                    bottom: index == 5 ? 0 : 15),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFFF2F2F2),
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        color: Colors.black38,
+                                        blurRadius: 4,
+                                      )
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Row(
+                                    children: [
+                                      Image.asset('images/coin4.png'),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 10,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              ' ${snapshot.data![index].amount}',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                  color:
+                                                      const Color(0xFF000000)),
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Container(
+                                              width: 290,
+                                              child: Row(
+                                                children: [
+                                                  Text(snapshot
+                                                      .data![index].state),
+                                                  Spacer(),
+                                                  Text(
+                                                    snapshot.data![index].date,
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.grey),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ));
+                          },
+                        ),
+                      );
+                    }
+                    return Center(child: Text('لا يوجد طلبات'));
+                  },
+                ),
+
               ],
             ),
           ),

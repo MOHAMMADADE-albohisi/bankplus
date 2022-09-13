@@ -1,4 +1,5 @@
 import 'package:bankplus/Prefs/shared_preferences.dart';
+import 'package:bankplus/model_db/lone.dart';
 import 'package:bankplus/model_db/process_response.dart';
 import 'package:bankplus/model_db/regester_admin_screen.dart';
 import 'package:bankplus/model_db/regester_user.dart';
@@ -6,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../db_controller.dart';
 
-class UserDbController {
+class AdminDbController {
   //Login ,Regester
 
   final Database _database = DbController().database;
@@ -15,7 +16,7 @@ class UserDbController {
       {required String email, required String password}) async {
     List<Map<String, dynamic>> rowMap = await _database.query(
       Admin.tableName,
-      where: 'identification = ? AND password = ?',
+      where: 'email = ? AND password = ?',
       whereArgs: [email, password],
     );
 
@@ -28,26 +29,17 @@ class UserDbController {
         message: 'Credentials error, checked and try again!');
   }
 
-  Future<processResponse> register({required Admin admin}) async {
-    if (await _isEmailExist(identification: admin.email)) {
-      int newRowId = await _database.insert(User.tableName, admin.toMap());
-      return processResponse(
-        message: newRowId != 0 ? 'Registered successfully' : 'Registered filde',
-        success: newRowId != 0,
-      );
-    } else {
-      return processResponse(
-        message: 'Email exist, use another',
-        success: false,
-      );
-    }
+  @override
+  Future<List<Services>> read() async {
+    List<Map<String, dynamic>> rowsMap =
+        await _database.query(Services.tableName);
+    return rowsMap.map((rowsMap) => Services.fromMap(rowsMap)).toList();
   }
 
-  Future<bool> _isEmailExist({required String identification}) async {
-    //
-    List<Map<String, dynamic>> rowMap = await _database.rawQuery(
-        'SELECT * FROM user WHERE identification = ?', [identification]);
-    return rowMap.isEmpty;
+  Future<List<Services>> readOne(int id) async {
+    List<Map<String, dynamic>> rowsMap =
+    await _database.query(Services.tableName,where: 'id=?',whereArgs: [id]);
+    return rowsMap.map((rowsMap) => Services.fromMap(rowsMap)).toList();
   }
+
 }
-

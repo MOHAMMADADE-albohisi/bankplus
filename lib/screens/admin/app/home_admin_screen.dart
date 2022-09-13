@@ -1,4 +1,8 @@
+import 'package:bankplus/database/controllers/admin_db_controller.dart';
+import 'package:bankplus/database/controllers/services_db_controller.dart';
+import 'package:bankplus/model_db/lone.dart';
 import 'package:bankplus/model_ui/country.dart';
+import 'package:bankplus/screens/admin/app/order_details_screen.dart';
 import 'package:bankplus/widget/bottom_admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,7 +81,6 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                   ),
                 ),
               ),
-
               Expanded(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -178,12 +181,105 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                const home_admin_widget(
-                  image: 'coin',
-                  titel: 'طلب قرض',
-                  datename: 'الاحد ',
-                  value: 'طلب قرض من قبل محمد بميلغ 3000\$',
-                  date: '22/10/2022',
+                FutureBuilder<List<Services>>(
+                  future: AdminDbController().read(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasData) {
+                      return Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () async {
+                               await ServicesDbController().update(snapshot.data![index].id,'الطلب في حالة قيد المراجعة');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OrderDetailsScreen(
+                                        snapshot.data![index].id),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                  height: 80,
+                                  margin: EdgeInsetsDirectional.only(
+                                      bottom: index == 5 ? 0 : 15),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFF2F2F2),
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          offset: Offset(0, 0),
+                                          color: Colors.black38,
+                                          blurRadius: 4,
+                                        )
+                                      ]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: Row(
+                                      children: [
+                                        Image.asset('images/coin.png'),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 10,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'طلب قرض',
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                    color: const Color(
+                                                        0xFF000000)),
+                                              ),
+                                              const SizedBox(height: 2),
+                                              Container(
+                                                width: 290,
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                        'طلب قرض من ${snapshot.data![index].user_name} بمبلغ ${snapshot.data![index].amount}\$'),
+                                                    Spacer(),
+                                                    Text(
+                                                      snapshot
+                                                          .data![index].date,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  Colors.grey),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return Center(child: Text('لا يوجد طلبات قيد الانتضار'));
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -192,85 +288,84 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                       Navigator.pushNamed(context, '/order_details_screen');
                     },
                     child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 50,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            height: 100,
-                            margin: EdgeInsetsDirectional.only(
-                                bottom: index == 5 ? 0 : 15),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF2F2F2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 12.5),
-                                  child: Icon(
-                                    Icons.monetization_on,
-                                    color: Color(0xFFCA50CA),
-                                  ),
+                      shrinkWrap: true,
+                      itemCount: 50,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 100,
+                          margin: EdgeInsetsDirectional.only(
+                              bottom: index == 5 ? 0 : 15),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF2F2F2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 12.5),
+                                child: Icon(
+                                  Icons.monetization_on,
+                                  color: Color(0xFFCA50CA),
                                 ),
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 320,
-                                      height: 50,
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'طلب قرض',
-                                            style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                              color: const Color(0xFF000000),
-                                            ),
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    width: 320,
+                                    height: 50,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'طلب قرض',
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14,
+                                            color: const Color(0xFF000000),
                                           ),
-                                          const Spacer(),
-                                          IconButton(
-                                              onPressed: () {
-                                                //
-                                              },
-                                              icon: const Icon(
-                                                Icons.check_box_rounded,
-                                                color: Color(0xFF5FCA8B),
-                                              ))
-                                        ],
-                                      ),
+                                        ),
+                                        const Spacer(),
+                                        IconButton(
+                                            onPressed: () {
+                                              //
+                                            },
+                                            icon: const Icon(
+                                              Icons.check_box_rounded,
+                                              color: Color(0xFF5FCA8B),
+                                            ))
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: 320,
-                                      height: 50,
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'طلب قرض من محمد بمليغ 3000\$',
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xFF000000),
-                                            ),
+                                  ),
+                                  SizedBox(
+                                    width: 320,
+                                    height: 50,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'طلب قرض من محمد بمليغ 3000\$',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                            color: const Color(0xFF000000),
                                           ),
-                                          const Spacer(),
-                                          Text(
-                                            'الاحد 22/10/2022',
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xFF000000),
-                                            ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          'الاحد 22/10/2022',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                            color: const Color(0xFF000000),
                                           ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        },
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                 )

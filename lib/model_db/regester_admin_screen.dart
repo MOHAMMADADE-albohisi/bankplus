@@ -1,27 +1,33 @@
 class Admin {
   late int id;
-  String email = 'mohammad@gmail.com';
+  late String name;
+  late String email;
+  late String password;
+  late String branch;
 
-  String password = '12345';
-
-  static const String tableName = 'admin';
+ static const String tableName = 'admin';
 
   Admin();
 
   Admin.fromMap(Map<String, dynamic> rowMap) {
     id = rowMap['id'];
-
+    name = rowMap['name'];
     email = rowMap['email'];
 
     password = rowMap['password'];
+
+    branch = rowMap['branch'];
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = <String, dynamic>{};
 
-    map['email'] = email = 'mohammad@gmail.com';
+    map['name'] = name;
+    map['email'] = email;
 
-    map['password'] = password = '12345';
+    map['password'] = password;
+
+    map['branch'] = branch;
 
     return map;
   }

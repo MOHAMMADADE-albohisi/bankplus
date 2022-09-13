@@ -10,7 +10,7 @@ abstract class DbOperations<Model> {
 
   Future<Model?> show(int id);
 
-  Future<bool> update(Model model);
+  Future<bool> update(int id,String state);
 
   Future<bool> delete(int id);
 

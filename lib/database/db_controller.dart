@@ -52,8 +52,8 @@ class DbController {
             'infoLoan TEXT DEFAULT Null,'
             'document TEXT  DEFAULT NULL,'
             'date TEXT DEFAULT NULL,'
-            'user_id INTEGER,'
-            'FOREIGN KEY (user_id) references user(id)'
+            'user_name TEXT,'
+            'FOREIGN KEY (user_name) references user(name)'
             ')');
       },
       onUpgrade: (Database database, int oldVersion, int newVersion) {},

@@ -10,8 +10,7 @@ class UserDbController {
 
   final Database _database = DbController().database;
 
-  Future<processResponse> login(
-      {required String identification, required String password}) async {
+  Future<processResponse> login({required String identification, required String password}) async {
     List<Map<String, dynamic>> rowMap = await _database.query(
       User.tableName,
       where: 'identification = ? AND password = ?',
@@ -31,6 +30,7 @@ class UserDbController {
     if (await _isEmailExist(identification: user.email)) {
       int newRowId = await _database.insert(User.tableName, user.toMap());
       SharedPrefController().saveUserId(UserId: newRowId);
+      SharedPrefController().saveUserName(UserName: user.name);
       return processResponse(
         message: newRowId != 0 ? 'Registered successfully' : 'Registered filde',
         success: newRowId != 0,
@@ -49,4 +49,5 @@ class UserDbController {
         'SELECT * FROM user WHERE identification = ?', [identification]);
     return rowMap.isEmpty;
   }
+
 }

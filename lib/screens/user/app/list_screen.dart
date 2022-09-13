@@ -181,9 +181,9 @@ class _ListScreenState extends State<ListScreen> {
     if (result ?? false) {
       bool remove =
           await SharedPrefController().removeValueFor(savedata.logedInd.name);
-          await SharedPrefController().claer();
+
       if (remove) {
-        Navigator.pushReplacementNamed(context, '/login_screen');
+        Navigator.pushReplacementNamed(context, '/complaints_admin_proposals_screen');
       }
     }
   }

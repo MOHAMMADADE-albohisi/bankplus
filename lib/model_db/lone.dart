@@ -7,7 +7,7 @@ class Services {
   late String infoLoan;
   late String document;
   late String date;
-  late int user_id;
+  late String user_name;
 
   static const String tableName = 'services';
 
@@ -22,7 +22,7 @@ class Services {
     infoLoan = rowMap['infoLoan'];
     document = rowMap['document'];
     date = rowMap['date'];
-    user_id = rowMap['user_id'];
+    user_name = rowMap['user_name'];
   }
 
   Map<String, dynamic> toMap() {
@@ -34,7 +34,7 @@ class Services {
     map['infoLoan'] = infoLoan;
     map['document'] = document;
     map['date'] = date;
-    map['user_id'] = user_id;
+    map['user_name'] = user_name;
 
     return map;
   }

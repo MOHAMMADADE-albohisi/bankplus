@@ -1,4 +1,8 @@
+import 'package:bankplus/database/controllers/admin_db_controller.dart';
+import 'package:bankplus/database/controllers/services_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
+import 'package:bankplus/model_db/process_response.dart';
+import 'package:bankplus/model_db/regester_admin_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,24 +15,24 @@ class LoginAdminScreen extends StatefulWidget {
 }
 
 class _LoginAdminScreenState extends State<LoginAdminScreen> {
-  late TextEditingController mobileTextEditingController;
-  late TextEditingController passwordTextEditingController;
+  late TextEditingController _emailTextEditingController;
+  late TextEditingController _passwordTextEditingController;
   late bool showpasssword = false;
   late TapGestureRecognizer richtextcontroller;
 
   @override
   void initState() {
     super.initState();
-    mobileTextEditingController = TextEditingController();
-    passwordTextEditingController = TextEditingController();
+    _emailTextEditingController = TextEditingController();
+    _passwordTextEditingController = TextEditingController();
     richtextcontroller = TapGestureRecognizer();
     richtextcontroller.onTap = createnewacountclick;
   }
 
   @override
   void dispose() {
-    mobileTextEditingController.dispose();
-    passwordTextEditingController.dispose();
+    _emailTextEditingController.dispose();
+    _passwordTextEditingController.dispose();
     richtextcontroller.dispose();
     super.dispose();
   }
@@ -73,17 +77,15 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TextField(
-              controller: mobileTextEditingController,
+              controller: _emailTextEditingController,
               keyboardType: TextInputType.emailAddress,
               style: GoogleFonts.poppins(),
-              maxLength: 9,
               decoration: InputDecoration(
                 hintText: 'ادخل عنوان بريد الالكتروني',
                 hintStyle: GoogleFonts.nunitoSans(
                     fontSize: 14,
                     color: const Color(0xFFD2D7E9),
                     fontWeight: FontWeight.w400),
-                counterText: '',
                 hintMaxLines: 1,
                 enabledBorder: buildOutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
@@ -113,7 +115,7 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TextField(
-              controller: passwordTextEditingController,
+              controller: _passwordTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
               obscureText: true,
@@ -216,8 +218,8 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
   }
 
   bool _checkData() {
-    if (mobileTextEditingController.text.isNotEmpty &&
-        passwordTextEditingController.text.isNotEmpty) {
+    if (_emailTextEditingController.text.isNotEmpty &&
+        _passwordTextEditingController.text.isNotEmpty) {
       return true;
     }
 
@@ -226,6 +228,24 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
   }
 
   Future<void> login() async {
-    Navigator.pushReplacementNamed(context, '/home_admin_screen');
+    processResponse ProcessResponse = await AdminDbController().login(
+        email: _emailTextEditingController.text,
+        password: _passwordTextEditingController.text);
+    if (ProcessResponse.success) {
+      Navigator.pushReplacementNamed(
+          context, '/bottom_admin_navigation_screen');
+    }
+    context.ShowSnakBar(
+        message: ProcessResponse.message, error: !ProcessResponse.success);
+
+    // Admin admin = Admin();
+    // admin.email = 'admin@admin.com';
+    // admin.password = '12345';
+    // admin.branch = 'فرع الوسطى';
+    // admin.name = 'Admin1';
+    // ServicesDbController().createadmin(admin);
   }
+
 }
+
+

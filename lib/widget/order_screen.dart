@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class order_detailse_screen extends StatelessWidget {
-  const order_detailse_screen({
+   order_detailse_screen({
     required this.titel,
     required this.money,
     Key? key,

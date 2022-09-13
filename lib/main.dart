@@ -71,10 +71,9 @@ class BankPlus extends StatelessWidget {
         //*************************************************************************************
         '/login_admin_screen': (context) => const LoginAdminScreen(),
         '/home_admin_screen': (context) => const HomeAdminScreen(),
-        '/order_details_screen': (context) => const OrderDetailsScreen(),
         '/mission_screen': (context) => const MissionScreen(),
         '/list_admin_screen': (context) => const ListAdminScreen(),
-        '/complaints_admin_proposals_screen': (context) =>
+        '/bottom_admin_navigation_screen': (context) =>
             const BottomAdminNavigationScreen(),
 
         '/complaints_admin_proposals_screen': (context) =>

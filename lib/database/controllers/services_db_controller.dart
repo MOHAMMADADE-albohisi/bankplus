@@ -1,11 +1,20 @@
 import 'package:bankplus/database/db_oprations.dart';
 import 'package:bankplus/model_db/lone.dart';
+import 'package:bankplus/model_db/regester_admin_screen.dart';
 import '../../Prefs/shared_preferences.dart';
 
 class ServicesDbController extends DbOperations<Services> {
   @override
   Future<bool> create(Services model) async {
     int test = await database.insert(Services.tableName, model.toMap());
+    if (test != 0) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> createadmin(Admin admin) async {
+    int test = await database.insert(Admin.tableName, admin.toMap());
     if (test != 0) {
       return true;
     }
@@ -21,11 +30,12 @@ class ServicesDbController extends DbOperations<Services> {
 
   @override
   Future<List<Services>> read() async {
-    int useId = SharedPrefController().getValueFor<int>(savedata.userId.name)!;
+    String useId = SharedPrefController().getValueFor<String>(savedata.userName.name)!;
     List<Map<String, dynamic>> rowsMap = await database
-        .query(Services.tableName);
+        .query(Services.tableName, where: 'user_name = ?', whereArgs: [useId]);
     return rowsMap.map((rowsMap) => Services.fromMap(rowsMap)).toList();
   }
+
 
   @override
   Future<Services?> show(int id) async {
@@ -35,13 +45,8 @@ class ServicesDbController extends DbOperations<Services> {
   }
 
   @override
-  Future<bool> update(Services model) async {
-    int countOfUpdateRows = await database.update(
-      Services.tableName,
-      model.toMap(),
-      where: 'id = ? AND user_id = ?',
-      whereArgs: [model.id, model.user_id],
-    );
+  Future<bool> update(int id,String state) async {
+    int countOfUpdateRows = await  database.rawUpdate('UPDATE services SET state=? WHERE id=?', [state ,id],);
     return countOfUpdateRows == 1;
   }
 }

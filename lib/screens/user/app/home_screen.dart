@@ -1,5 +1,9 @@
+import 'package:bankplus/Prefs/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../database/controllers/services_db_controller.dart';
+import '../../../model_db/lone.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -48,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Column(
                 children: [
                   Text(
-                    'مرحبا دينا',
+                    ' مرحبا ${SharedPrefController().getValueFor(savedata.userName.name)}',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -124,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 200,
                           height: 200,
                           decoration: BoxDecoration(
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 color: Colors.black45,
                                 offset: Offset(0, 3),
@@ -174,29 +178,91 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  height: 230,
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: 10,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                FutureBuilder<List<Services>>(
+                  future: ServicesDbController().read(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasData) {
+                      return Padding(
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                height: 70,
+                                margin: EdgeInsetsDirectional.only(
+                                    bottom: index == 5 ? 0 : 15),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFFF2F2F2),
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        color: Colors.black38,
+                                        blurRadius: 4,
+                                      )
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Row(
+                                    children: [
+                                      Image.asset('images/coin.png'),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 10,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              ' ${snapshot.data![index].amount}',
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                  color:
+                                                  const Color(0xFF000000)),
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Container(
+                                              width: 290,
+                                              child: Row(
+                                                children: [
+                                                  Text(snapshot
+                                                      .data![index].state),
+                                                  Spacer(),
+                                                  Text(
+                                                    snapshot.data![index].date,
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                        color: Colors.grey),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ));
+                          },
                         ),
                       );
-                    },
-                  ),
-                )
+                    }
+                    return Center(child: Text('لا يوجد طلبات قيد الانتضار'));
+                  },
+                ),
               ],
             ),
           )

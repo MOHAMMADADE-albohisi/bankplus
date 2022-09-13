@@ -6,7 +6,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class LoanRequestScreen extends StatefulWidget {
   const LoanRequestScreen({Key? key}) : super(key: key);
 
@@ -227,11 +226,11 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
     services.amount = int.parse(_valueTextEditingController.text);
     services.info = _infoTextEditingController.text;
     services.typeName = 'test';
-    services.user_id = SharedPrefController().getValueFor(savedata.userId.name);
-    services.state = 'الطلب قيد المراجعة';
+    services.user_name = SharedPrefController().getValueFor(savedata.userName.name);
+    services.state = 'الطلب في حالة انتظار الموافقة عليه';
     services.infoLoan = '';
     services.document = '';
-    services.date = '${DateTime.now()}';
+    services.date = '${DateTime.now().toString().substring(0, 10)}';
     bool tests = await ServicesDbController().create(services);
     if (tests == true) {
       Navigator.pushReplacementNamed(context, '/successful_operation_screen');
