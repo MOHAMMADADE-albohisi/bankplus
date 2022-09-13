@@ -25,8 +25,8 @@ class _RegesterScreenState extends State<RegesterScreen> {
   late TextEditingController _numberAcountTextEditingController;
   late bool showpasssword = false;
   late TapGestureRecognizer richtextcontroller;
-  late String? gender = 'M';
-  int? _selectedcountryid;
+  String? _gender;
+  String? _selectedcountryid;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
     Country(id: 1, title: 'فرع الجنوب'),
     Country(id: 2, title: 'فرع الوسطى'),
     Country(id: 3, title: 'فرع الشمال'),
-    Country(id: 4, title: 'فرع الوسطى'),
+    Country(id: 4, title: 'فرع غزة'),
     Country(id: 5, title: 'فرع الرمال'),
   ];
 
@@ -258,9 +258,9 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       style: GoogleFonts.poppins(),
                     ),
                     value: 'M',
-                    groupValue: gender,
+                    groupValue: _gender,
                     onChanged: (String? value) {
-                      setState(() => gender = value);
+                      setState(() => _gender = value);
                     },
                   ),
                 ),
@@ -278,9 +278,9 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       style: GoogleFonts.poppins(),
                     ),
                     value: 'F',
-                    groupValue: gender,
+                    groupValue: _gender,
                     onChanged: (String? value) {
-                      setState(() => gender = value);
+                      setState(() => _gender = value);
                     },
                   ),
                 ),
@@ -399,7 +399,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 20),
-                        child: DropdownButton<int>(
+                        child: DropdownButton<String>(
                           isExpanded: true,
                           hint: const Text(
                             'اختر الفرع',
@@ -407,7 +407,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                           style: GoogleFonts.montserrat(
                             color: Colors.black54,
                           ),
-                          onChanged: (int? value) {
+                          onChanged: (String? value) {
                             setState(() => _selectedcountryid = value);
                           },
                           //***************************************************
@@ -427,7 +427,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                                           AlignmentDirectional.centerStart,
                                       child: Text(
                                         _Countryss.firstWhere((element) =>
-                                            element.id ==
+                                            element.title ==
                                             _selectedcountryid).title,
                                         style: GoogleFonts.montserrat(
                                             color: Colors.grey),
@@ -439,8 +439,8 @@ class _RegesterScreenState extends State<RegesterScreen> {
                           //***************************************************
                           items: _Countryss.map(
                             (Countrysss) {
-                              return DropdownMenuItem<int>(
-                                value: Countrysss.id,
+                              return DropdownMenuItem<String>(
+                                value: Countrysss.title,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -630,7 +630,6 @@ class _RegesterScreenState extends State<RegesterScreen> {
   }
 
   User get user {
-
     User user = User();
     user.identification = _idTextEditingController.text;
     user.name = _nameTextEditingController.text;
@@ -638,6 +637,8 @@ class _RegesterScreenState extends State<RegesterScreen> {
     user.password = _passwordTextEditingController.text;
     user.phoneNumber = _mobileTextEditingController.text;
     user.accountNumber = _numberAcountTextEditingController.text;
+    user.branch = _selectedcountryid!;
+    user.gender = _gender!;
 
     return user;
   }

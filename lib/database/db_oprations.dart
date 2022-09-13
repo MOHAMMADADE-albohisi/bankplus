@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 abstract class DbOperations<Model> {
   final Database database = DbController().database;
 
-  Future<int> create(Model model);
+  Future<bool> create(Model model);
 
   Future<List<Model>> read();
 

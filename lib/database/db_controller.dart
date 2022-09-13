@@ -31,12 +31,29 @@ class DbController {
             'email TEXT NOT NULL,'
             'phoneNumber TEXT NOT NULL,'
             'password TEXT NOT NULL,'
-            'accountNumber TEXT NOT NULL'
+            'accountNumber TEXT NOT NULL,'
+            'gender TEXT NOT NULL,'
+            'branch TEXT NOT NULL '
             ')');
         await database.execute('CREATE TABLE admin('
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
+            'name TEXT NOT NULL,'
             'email TEXT NOT NULL,'
-            'password TEXT NOT NULL'
+            'password TEXT NOT NULL,'
+            'branch TEXT NOT NULL '
+            ')');
+
+        await database.execute('CREATE TABLE services('
+            'id INTEGER PRIMARY KEY AUTOINCREMENT,'
+            'typeName TEXT NOT NULL,'
+            'amount INTEGER NOT NULL,'
+            'info TEXT NOT NULL,'
+            'state TEXT DEFAULT \'waiting\','
+            'infoLoan TEXT DEFAULT Null,'
+            'document TEXT  DEFAULT NULL,'
+            'date TEXT DEFAULT NULL,'
+            'user_id INTEGER,'
+            'FOREIGN KEY (user_id) references user(id)'
             ')');
       },
       onUpgrade: (Database database, int oldVersion, int newVersion) {},

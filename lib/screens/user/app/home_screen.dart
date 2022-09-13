@@ -11,10 +11,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
 
-
-
-
-
   @override
   void initState() {
     super.initState();
@@ -118,27 +114,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 140),
-                  child: GridView.builder(
-                      itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              mainAxisSpacing: 10,
-                              crossAxisCount: 1,
-                              // mainAxisExtent: 100
-                              childAspectRatio: 80 / 100),
-                      itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/loan_request_screen');
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 200,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black45,
+                                offset: Offset(0, 3),
+                                blurRadius: 5,
+                              )
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Column(
                             children: [
+                              SizedBox(height: 15),
                               Image.asset('images/Transfer.png'),
-                              const SizedBox(height: 1),
+                              const SizedBox(height: 20),
                               Text(
                                 'القروض',
                                 style: GoogleFonts.poppins(
@@ -148,10 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
                                 child: SizedBox(
-                                  height: 75,
                                   child: Text(
                                     'بأمكانك من خلال التطبيق سحب القرض بالقيمة التي تريدها بكل سهولة.',
                                     style: GoogleFonts.poppins(),
@@ -160,9 +158,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               )
                             ],
                           ),
-                        );
-                      }),
-                ),
+                        )
+                      ],
+                    )),
                 const SizedBox(height: 24),
                 Row(
                   children: [

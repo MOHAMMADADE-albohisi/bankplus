@@ -27,10 +27,10 @@ class UserDbController {
         message: 'Credentials error, checked and try again!');
   }
 
-
   Future<processResponse> register({required User user}) async {
     if (await _isEmailExist(identification: user.email)) {
       int newRowId = await _database.insert(User.tableName, user.toMap());
+      SharedPrefController().saveUserId(UserId: newRowId);
       return processResponse(
         message: newRowId != 0 ? 'Registered successfully' : 'Registered filde',
         success: newRowId != 0,
@@ -50,4 +50,3 @@ class UserDbController {
     return rowMap.isEmpty;
   }
 }
-

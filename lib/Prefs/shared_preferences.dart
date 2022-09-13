@@ -3,7 +3,7 @@ import 'package:bankplus/model_db/regester_admin_screen.dart';
 import 'package:bankplus/model_db/regester_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum savedata {id, name, email, logedInd }
+enum savedata { id, name, email, logedInd, userId }
 
 class SharedPrefController {
   SharedPrefController._();
@@ -22,12 +22,14 @@ class SharedPrefController {
 
   void save({required User user}) {
     _sharedPreferences.setBool(savedata.logedInd.name, true);
-
   }
 
   void saveAdmin({required Admin admin}) {
     _sharedPreferences.setBool(savedata.logedInd.name, true);
+  }
 
+  void saveUserId({required int UserId}) {
+    _sharedPreferences.setInt(savedata.userId.name, UserId);
   }
 
   T? getValueFor<T>(String key) {

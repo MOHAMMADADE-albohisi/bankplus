@@ -60,8 +60,7 @@ class BankPlus extends StatelessWidget {
 
         '/home_screen': (context) => const HomeScreen(),
         '/loan_request_screen': (context) => const LoanRequestScreen(),
-        '/successful_operation_screen': (context) =>
-            const SuccessfulOperationScreen(),
+        '/successful_operation_screen': (context) =>const SuccessfulOperationScreen(),
         '/_home_birds_screenState': (context) => const HomeBirdsScreen(),
         '/profile_screen': (context) => const ProfileScreen(),
         '/list_screen': (context) => const ListScreen(),

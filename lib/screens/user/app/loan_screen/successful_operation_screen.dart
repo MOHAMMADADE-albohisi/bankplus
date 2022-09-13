@@ -44,7 +44,7 @@ class _SuccessfulOperationScreenState extends State<SuccessfulOperationScreen> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home_screen');
+                    Navigator.pushReplacementNamed(context, '/bottom_navigatio_screen');
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.transparent,

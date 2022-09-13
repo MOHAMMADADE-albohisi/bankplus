@@ -1,7 +1,11 @@
+import 'package:bankplus/Prefs/shared_preferences.dart';
+import 'package:bankplus/database/controllers/services_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
+import 'package:bankplus/model_db/lone.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 
 class LoanRequestScreen extends StatefulWidget {
   const LoanRequestScreen({Key? key}) : super(key: key);
@@ -219,6 +223,22 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
   }
 
   Future<void> login() async {
-    Navigator.pushReplacementNamed(context, '/successful_operation_screen');
+    Services services = Services();
+    services.amount = int.parse(_valueTextEditingController.text);
+    services.info = _infoTextEditingController.text;
+    services.typeName = 'test';
+    services.user_id = SharedPrefController().getValueFor(savedata.userId.name);
+    services.state = 'الطلب قيد المراجعة';
+    services.infoLoan = '';
+    services.document = '';
+    services.date = '${DateTime.now()}';
+    bool tests = await ServicesDbController().create(services);
+    if (tests == true) {
+      Navigator.pushReplacementNamed(context, '/successful_operation_screen');
+    } else {
+      context.ShowSnakBar(message: 'حدث خطا ما', error: true);
+    }
+
+    // ignore: use_build_conte
   }
 }
