@@ -21,6 +21,7 @@ class ServicesDbController extends DbOperations<Services> {
 
   @override
   Future<List<Services>> read() async {
+    int useId = SharedPrefController().getValueFor<int>(savedata.userId.name)!;
     List<Map<String, dynamic>> rowsMap = await database
         .query(Services.tableName);
     return rowsMap.map((rowsMap) => Services.fromMap(rowsMap)).toList();
