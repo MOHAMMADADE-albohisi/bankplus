@@ -27,6 +27,7 @@ class UserDbController {
         message: 'Credentials error, checked and try again!');
   }
 
+
   Future<processResponse> register({required User user}) async {
     if (await _isEmailExist(identification: user.email)) {
       int newRowId = await _database.insert(User.tableName, user.toMap());
