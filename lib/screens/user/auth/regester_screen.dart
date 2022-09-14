@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, duplicate_ignore
 
 import 'package:bankplus/database/controllers/user_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
@@ -23,7 +23,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
   late TextEditingController _numberAcountTextEditingController;
-  late bool showpasssword = false;
+  late bool showpasssword = true;
   late TapGestureRecognizer richtextcontroller;
   String? _gender;
   String? _selectedcountryid;
@@ -70,8 +70,9 @@ class _RegesterScreenState extends State<RegesterScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: true,
         title: Text(
-          'تسجيل جديد',
+          'تسجيل عميل جديد',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w400,
             fontSize: 16,
@@ -99,7 +100,8 @@ class _RegesterScreenState extends State<RegesterScreen> {
                         shape: BoxShape.circle,
                         color: Colors.grey,
                       ),
-                      child: Image.asset('images/mohammad.jpeg'),
+                      child: Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSVNDTCFdYkZVDp49l0Sux5b0qaQboq6swiLhZI04&s'),
                     ),
                     const PositionedDirectional(
                       bottom: 0,
@@ -242,7 +244,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
           ),
           const SizedBox(height: 12),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
               children: [
                 Container(
@@ -344,7 +346,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
               controller: _passwordTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
-              obscureText: true,
+              obscureText: showpasssword,
               decoration: InputDecoration(
                 hintText: 'ادخل كلمة المرور',
                 hintStyle: GoogleFonts.nunitoSans(
@@ -356,7 +358,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                     setState(() => {showpasssword = !showpasssword});
                   },
                   icon: Icon(
-                    showpasssword ? Icons.visibility_off : Icons.visibility,
+                    showpasssword ? Icons.visibility : Icons.visibility_off,
                   ),
                 ),
                 hintMaxLines: 1,
@@ -564,24 +566,29 @@ class _RegesterScreenState extends State<RegesterScreen> {
             ),
           ),
           const Divider(),
-          RichText(
-            text: TextSpan(
-              text: 'بالنقر فوق زر تسجيل الدخول ، فإنك توافق على  ',
-              style:
-                  GoogleFonts.nunito(color: Colors.grey.shade700, fontSize: 15),
-              children: [
-                TextSpan(
-                  text: 'الشروط والأحكام وسياسة الخصوصية',
-                  recognizer: richtextcontroller,
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFFCA50CA),
-                    fontWeight: FontWeight.bold,
-                    decorationStyle: TextDecorationStyle.solid,
-                    decoration: TextDecoration.underline,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 19,
+            ),
+            child: RichText(
+              text: TextSpan(
+                text: 'بالنقر فوق زر تسجيل الدخول ، فإنك توافق على  ',
+                style: GoogleFonts.nunito(
+                    color: Colors.grey.shade700, fontSize: 15),
+                children: [
+                  TextSpan(
+                    text: 'الشروط والأحكام وسياسة الخصوصية',
+                    recognizer: richtextcontroller,
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: const Color(0xFFCA50CA),
+                      fontWeight: FontWeight.bold,
+                      decorationStyle: TextDecorationStyle.solid,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

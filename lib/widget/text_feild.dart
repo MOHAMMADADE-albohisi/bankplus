@@ -36,7 +36,7 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: GoogleFonts.nunitoSans(fontSize: 14.sp,
-            color: Color(0xFFD2D7E9),
+            color: const Color(0xFFD2D7E9),
             fontWeight: FontWeight.w400),
         hintMaxLines: 1,
         suffixIcon: sufficIcon,

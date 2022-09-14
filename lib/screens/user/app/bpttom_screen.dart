@@ -1,6 +1,5 @@
 import 'package:bankplus/database/controllers/services_db_controller.dart';
 import 'package:bankplus/model_db/lone.dart';
-import 'package:bankplus/widget/bottom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -56,7 +55,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -73,8 +72,8 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                 controller: _tabController,
                 labelColor: const Color(0xFF000000),
                 tabs: const [
-                  Tab(text: ' قيد الانتضار'),
-                  Tab(text: 'قيد المراجعة'),
+                  Tab(text: 'الانتظار'),
+                  Tab(text: ' المراجعة'),
                   Tab(text: 'مقبول'),
                   Tab(text: 'مرفوض'),
                 ],
@@ -89,7 +88,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                   future: ServicesDbController().read(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasData) {
@@ -97,8 +96,8 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                           element.state !=
                           'الطلب في حالة انتظار الموافقة عليه');
                       return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -134,7 +133,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              ' ${snapshot.data![index].amount}',
+                                              ' ${snapshot.data![index].amount}\$',
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 12,
@@ -142,13 +141,13 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                                       const Color(0xFF000000)),
                                             ),
                                             const SizedBox(height: 2),
-                                            Container(
+                                            SizedBox(
                                               width: 290,
                                               child: Row(
                                                 children: [
                                                   Text(snapshot
                                                       .data![index].state),
-                                                  Spacer(),
+                                                  const Spacer(),
                                                   Text(
                                                     snapshot.data![index].date,
                                                     style: GoogleFonts.poppins(
@@ -170,22 +169,23 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                         ),
                       );
                     }
-                    return Center(child: Text('لا يوجد طلبات قيد الانتضار'));
+                    return const Center(
+                        child: Text('لا يوجد طلبات قيد الانتضار'));
                   },
                 ),
                 FutureBuilder<List<Services>>(
                   future: ServicesDbController().read(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasData) {
                       snapshot.data!.removeWhere((element) =>
                           element.state != 'الطلب في حالة قيد المراجعة');
                       return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -221,7 +221,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              ' ${snapshot.data![index].amount}',
+                                              ' ${snapshot.data![index].amount}\$',
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 12,
@@ -229,13 +229,13 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                                       const Color(0xFF000000)),
                                             ),
                                             const SizedBox(height: 2),
-                                            Container(
+                                            SizedBox(
                                               width: 290,
                                               child: Row(
                                                 children: [
                                                   Text(snapshot
                                                       .data![index].state),
-                                                  Spacer(),
+                                                  const Spacer(),
                                                   Text(
                                                     snapshot.data![index].date,
                                                     style: GoogleFonts.poppins(
@@ -257,22 +257,23 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                         ),
                       );
                     }
-                    return Center(child: Text('لا يوجد طلبات قيد المراجعة'));
+                    return const Center(
+                        child: Text('لا يوجد طلبات قيد المراجعة'));
                   },
                 ),
                 FutureBuilder<List<Services>>(
                   future: ServicesDbController().read(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       snapshot.data!.removeWhere(
                           (element) => element.state != 'الطلب مقبول');
                       return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -308,7 +309,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              ' ${snapshot.data![index].amount}',
+                                              ' ${snapshot.data![index].amount}\$',
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 12,
@@ -316,13 +317,13 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                                       const Color(0xFF000000)),
                                             ),
                                             const SizedBox(height: 2),
-                                            Container(
+                                            SizedBox(
                                               width: 290,
                                               child: Row(
                                                 children: [
                                                   Text(snapshot
                                                       .data![index].state),
-                                                  Spacer(),
+                                                  const Spacer(),
                                                   Text(
                                                     snapshot.data![index].date,
                                                     style: GoogleFonts.poppins(
@@ -344,22 +345,22 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                         ),
                       );
                     }
-                    return Center(child: Text('لا يوجد طلبات'));
+                    return const Center(child: Text('لا يوجد طلبات'));
                   },
                 ),
                 FutureBuilder<List<Services>>(
                   future: ServicesDbController().read(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       snapshot.data!.removeWhere(
                           (element) => element.state != 'الطلب مرفوض');
                       return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -395,7 +396,7 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              ' ${snapshot.data![index].amount}',
+                                              ' ${snapshot.data![index].amount}\$',
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 12,
@@ -403,13 +404,13 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                                                       const Color(0xFF000000)),
                                             ),
                                             const SizedBox(height: 2),
-                                            Container(
+                                            SizedBox(
                                               width: 290,
                                               child: Row(
                                                 children: [
                                                   Text(snapshot
                                                       .data![index].state),
-                                                  Spacer(),
+                                                  const Spacer(),
                                                   Text(
                                                     snapshot.data![index].date,
                                                     style: GoogleFonts.poppins(
@@ -431,10 +432,9 @@ class _HomeBirdsScreenState extends State<HomeBirdsScreen>
                         ),
                       );
                     }
-                    return Center(child: Text('لا يوجد طلبات'));
+                    return const Center(child: Text('لا يوجد طلبات'));
                   },
                 ),
-
               ],
             ),
           ),

@@ -30,12 +30,12 @@ class ServicesDbController extends DbOperations<Services> {
 
   @override
   Future<List<Services>> read() async {
-    String useId = SharedPrefController().getValueFor<String>(savedata.userName.name)!;
+    String useId =
+        SharedPrefController().getValueFor<String>(savedata.userName.name)!;
     List<Map<String, dynamic>> rowsMap = await database
         .query(Services.tableName, where: 'user_name = ?', whereArgs: [useId]);
     return rowsMap.map((rowsMap) => Services.fromMap(rowsMap)).toList();
   }
-
 
   @override
   Future<Services?> show(int id) async {
@@ -45,8 +45,11 @@ class ServicesDbController extends DbOperations<Services> {
   }
 
   @override
-  Future<bool> update(int id,String state) async {
-    int countOfUpdateRows = await  database.rawUpdate('UPDATE services SET state=? WHERE id=?', [state ,id],);
+  Future<bool> update(int id, String state) async {
+    int countOfUpdateRows = await database.rawUpdate(
+      'UPDATE services SET state=? WHERE id=?',
+      [state, id],
+    );
     return countOfUpdateRows == 1;
   }
 }

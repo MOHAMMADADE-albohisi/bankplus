@@ -1,9 +1,9 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, non_constant_identifier_names
 import 'package:bankplus/model_db/regester_admin_screen.dart';
 import 'package:bankplus/model_db/regester_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum savedata { id, name, email, logedInd, userId,userName }
+enum savedata { id, name, email, logedInd, userId, userName, admin }
 
 class SharedPrefController {
   SharedPrefController._();
@@ -31,6 +31,7 @@ class SharedPrefController {
   void saveUserId({required int UserId}) {
     _sharedPreferences.setInt(savedata.userId.name, UserId);
   }
+
   void saveUserName({required String UserName}) {
     _sharedPreferences.setString(savedata.userName.name, UserName);
   }

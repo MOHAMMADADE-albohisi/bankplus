@@ -2,7 +2,6 @@ import 'package:bankplus/Prefs/shared_preferences.dart';
 import 'package:bankplus/model_db/lone.dart';
 import 'package:bankplus/model_db/process_response.dart';
 import 'package:bankplus/model_db/regester_admin_screen.dart';
-import 'package:bankplus/model_db/regester_user.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../db_controller.dart';
@@ -12,8 +11,7 @@ class AdminDbController {
 
   final Database _database = DbController().database;
 
-  Future<processResponse> login(
-      {required String email, required String password}) async {
+  Future<processResponse> login({required String email, required String password}) async {
     List<Map<String, dynamic>> rowMap = await _database.query(
       Admin.tableName,
       where: 'email = ? AND password = ?',
@@ -29,7 +27,6 @@ class AdminDbController {
         message: 'Credentials error, checked and try again!');
   }
 
-  @override
   Future<List<Services>> read() async {
     List<Map<String, dynamic>> rowsMap =
         await _database.query(Services.tableName);

@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController mobileTextEditingController;
   late TextEditingController passwordTextEditingController;
-  late bool showpasssword = false;
+  late bool _showpasssword = true;
   late TapGestureRecognizer richtextcontroller;
 
   @override
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: passwordTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
-              obscureText: true,
+              obscureText: _showpasssword,
               decoration: InputDecoration(
                 hintText: 'ادخل كلمة المرور',
                 hintStyle: GoogleFonts.nunitoSans(
@@ -128,10 +128,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w400),
                 suffixIcon: IconButton(
                   onPressed: () {
-                    setState(() => {showpasssword = !showpasssword});
+                    setState(() => {_showpasssword = !_showpasssword});
                   },
                   icon: Icon(
-                    showpasssword ? Icons.visibility_off : Icons.visibility,
+                    _showpasssword ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
                 hintMaxLines: 1,

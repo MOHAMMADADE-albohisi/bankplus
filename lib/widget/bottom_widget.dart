@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -61,17 +63,17 @@ class home_bottome_widget extends StatelessWidget {
                             const SizedBox(height: 2),
                             Row(
                               children: [
-                                 Text('$titel'),
+                                 Text(titel),
                                 const SizedBox(width: 15),
                                 Text(
-                                  '$datename',
+                                  datename,
                                   style: GoogleFonts.poppins(
                                       fontSize: 8,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.grey),
                                 ),
                                 Text(
-                                  '$date',
+                                  date,
                                   style: GoogleFonts.poppins(
                                       fontSize: 8,
                                       fontWeight: FontWeight.w500,

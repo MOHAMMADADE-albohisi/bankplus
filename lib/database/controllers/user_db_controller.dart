@@ -10,7 +10,8 @@ class UserDbController {
 
   final Database _database = DbController().database;
 
-  Future<processResponse> login({required String identification, required String password}) async {
+  Future<processResponse> login(
+      {required String identification, required String password}) async {
     List<Map<String, dynamic>> rowMap = await _database.query(
       User.tableName,
       where: 'identification = ? AND password = ?',
@@ -49,5 +50,4 @@ class UserDbController {
         'SELECT * FROM user WHERE identification = ?', [identification]);
     return rowMap.isEmpty;
   }
-
 }

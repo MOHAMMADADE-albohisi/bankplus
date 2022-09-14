@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../Prefs/shared_preferences.dart';
 
 class ListAdminScreen extends StatefulWidget {
   const ListAdminScreen({Key? key}) : super(key: key);
@@ -29,7 +33,7 @@ class _ListAdminScreenState extends State<ListAdminScreen> {
                 'الشكاوي والمقترحات ',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF0000000),
+                  color: const Color(0xFF000000),
                   fontSize: 15,
                 ),
               ),
@@ -55,7 +59,7 @@ class _ListAdminScreenState extends State<ListAdminScreen> {
                 'الدعم الفني',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF0000000),
+                  color: const Color(0xFF000000),
                   fontSize: 15,
                 ),
               ),
@@ -73,7 +77,7 @@ class _ListAdminScreenState extends State<ListAdminScreen> {
           const SizedBox(height: 362),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/login_admin_screen');
+              _confirmeLogoute();
             },
             child: Row(
               children: [
@@ -87,7 +91,7 @@ class _ListAdminScreenState extends State<ListAdminScreen> {
                   'تسجيل الخروج',
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF0000000),
+                    color: const Color(0xFF000000),
                     fontSize: 15,
                   ),
                 ),
@@ -97,5 +101,64 @@ class _ListAdminScreenState extends State<ListAdminScreen> {
         ],
       ),
     );
+  }
+
+  void _confirmeLogoute() async {
+    bool? result = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'تسجيل الخروج',
+            style: GoogleFonts.cairo(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          content: Text(
+            'هل انت متاكد من تسجيل الخروج',
+            style: GoogleFonts.cairo(
+              fontSize: 13,
+              color: Colors.black45,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: Text(
+                'تسجيل الخروج',
+                style: GoogleFonts.cairo(
+                  fontSize: 12,
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: Text(
+                'لا',
+                style: GoogleFonts.cairo(
+                  fontSize: 12,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result ?? false) {
+      bool remove =
+          await SharedPrefController().removeValueFor(savedata.logedInd.name);
+      if (remove) {
+        Navigator.pushReplacementNamed(
+            context, '/complaints_admin_proposals_screen');
+      }
+    }
   }
 }
