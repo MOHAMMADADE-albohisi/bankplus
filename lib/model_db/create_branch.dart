@@ -1,12 +1,12 @@
-class Bbranch {
+class Branch {
   late int id;
   late String name;
 
   static const String tableName = 'admin';
 
-  Bbranch();
+  Branch();
 
-  Bbranch.fromMap(Map<String, dynamic> rowMap) {
+  Branch.fromMap(Map<String, dynamic> rowMap) {
     id = rowMap['id'];
     name = rowMap['name'];
   }

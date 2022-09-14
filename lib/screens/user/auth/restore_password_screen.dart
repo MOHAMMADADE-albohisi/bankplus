@@ -79,7 +79,7 @@ class _RestorePasswordScreenState extends State<RestorePasswordScreen> {
               controller: passwordTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
-              obscureText: true,
+              obscureText: showpasssword,
               maxLength: 4,
               decoration: InputDecoration(
                 hintText: 'ادخل كلمة المرور ',
@@ -128,7 +128,7 @@ class _RestorePasswordScreenState extends State<RestorePasswordScreen> {
               controller: confirmPasswordTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
-              obscureText: true,
+              obscureText: confirmShowpasssword,
               maxLength: 4,
               decoration: InputDecoration(
                 hintText: 'ادخل كلمة المرور ',

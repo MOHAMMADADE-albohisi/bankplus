@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, unnecessary_null_comparison
+
 import 'package:bankplus/database/controllers/admin_db_controller.dart';
 import 'package:bankplus/database/controllers/services_db_controller.dart';
 import 'package:bankplus/model_db/lone.dart';
 import 'package:bankplus/model_ui/country.dart';
 import 'package:bankplus/screens/admin/app/order_details_screen.dart';
-import 'package:bankplus/widget/bottom_admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,13 +20,13 @@ class HomeAdminScreen extends StatefulWidget {
 class _HomeAdminScreenState extends State<HomeAdminScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int? _selectedcountryid;
+  int _selectedcountryid = 4;
 
   final List<Country> _Countryss = <Country>[
     Country(id: 1, title: 'فرع الجنوب'),
     Country(id: 2, title: 'فرع الوسطى'),
     Country(id: 3, title: 'فرع الشمال'),
-    Country(id: 4, title: 'فرع الوسطى'),
+    Country(id: 4, title: 'الفرع الرئيسي'),
     Country(id: 5, title: 'فرع الرمال'),
   ];
 
@@ -103,7 +104,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                           color: Colors.black54,
                         ),
                         onChanged: (int? value) {
-                          setState(() => _selectedcountryid = value);
+                          setState(() => _selectedcountryid = value!);
                         },
                         //***************************************************
                         borderRadius: BorderRadius.circular(20),
@@ -185,20 +186,22 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                   future: AdminDbController().read(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasData) {
                       return Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () async {
-                               await ServicesDbController().update(snapshot.data![index].id,'الطلب في حالة قيد المراجعة');
+                                await ServicesDbController().update(
+                                    snapshot.data![index].id,
+                                    'الطلب في حالة قيد المراجعة');
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -208,7 +211,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                                 );
                               },
                               child: Container(
-                                  height: 80,
+                                  height: 100,
                                   margin: EdgeInsetsDirectional.only(
                                       bottom: index == 5 ? 0 : 15),
                                   decoration: BoxDecoration(
@@ -223,7 +226,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                                       ]),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
+                                        horizontal: 15),
                                     child: Row(
                                       children: [
                                         Image.asset('images/coin.png'),
@@ -245,13 +248,17 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                                                         0xFF000000)),
                                               ),
                                               const SizedBox(height: 2),
-                                              Container(
+                                              SizedBox(
                                                 width: 290,
                                                 child: Row(
                                                   children: [
-                                                    Text(
-                                                        'طلب قرض من ${snapshot.data![index].user_name} بمبلغ ${snapshot.data![index].amount}\$'),
-                                                    Spacer(),
+                                                    SizedBox(
+                                                      width: 235,
+                                                      height: 50,
+                                                      child: Text(
+                                                          'طلب قرض من ${snapshot.data![index].user_name} بمبلغ ${snapshot.data![index].amount}\$'),
+                                                    ),
+                                                    const Spacer(),
                                                     Text(
                                                       snapshot
                                                           .data![index].date,
@@ -278,97 +285,115 @@ class _HomeAdminScreenState extends State<HomeAdminScreen>
                         ),
                       );
                     }
-                    return Center(child: Text('لا يوجد طلبات قيد الانتضار'));
+                    return const Center(child: Text('لا يوجد طلبات جديدة'));
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/order_details_screen');
-                    },
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 50,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 100,
-                          margin: EdgeInsetsDirectional.only(
-                              bottom: index == 5 ? 0 : 15),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 12.5),
-                                child: Icon(
-                                  Icons.monetization_on,
-                                  color: Color(0xFFCA50CA),
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    width: 320,
-                                    height: 50,
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'طلب قرض',
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14,
-                                            color: const Color(0xFF000000),
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        IconButton(
-                                            onPressed: () {
-                                              //
-                                            },
-                                            icon: const Icon(
-                                              Icons.check_box_rounded,
-                                              color: Color(0xFF5FCA8B),
-                                            ))
-                                      ],
-                                    ),
+                FutureBuilder<List<Services>>(
+                  future: AdminDbController().read(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasData) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () async {
+                                await ServicesDbController().update(
+                                    snapshot.data![index].id,
+                                    'الطلب في حالة قيد المراجعة');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OrderDetailsScreen(
+                                        snapshot.data![index].id),
                                   ),
-                                  SizedBox(
-                                    width: 320,
-                                    height: 50,
+                                );
+                              },
+                              child: Container(
+                                  height: 100,
+                                  margin: EdgeInsetsDirectional.only(
+                                      bottom: index == 5 ? 0 : 15),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFF2F2F2),
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          offset: Offset(0, 0),
+                                          color: Colors.black38,
+                                          blurRadius: 4,
+                                        )
+                                      ]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
                                     child: Row(
                                       children: [
-                                        Text(
-                                          'طلب قرض من محمد بمليغ 3000\$',
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                            color: const Color(0xFF000000),
+                                        Image.asset('images/coin.png'),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 10,
                                           ),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          'الاحد 22/10/2022',
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                            color: const Color(0xFF000000),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'طلب قرض',
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                    color: const Color(
+                                                        0xFF000000)),
+                                              ),
+                                              const SizedBox(height: 2),
+                                              SizedBox(
+                                                width: 290,
+                                                child: Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 235,
+                                                      height: 50,
+                                                      child: Text(
+                                                          'طلب قرض من ${snapshot.data![index].user_name} بمبلغ ${snapshot.data![index].amount}\$'),
+                                                    ),
+                                                    const Spacer(),
+                                                    Text(
+                                                      snapshot
+                                                          .data![index].date,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  Colors.grey),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                )
+                                  )),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return const Center(child: Text('لا يوجد طلبات جديدة'));
+                  },
+                ),
               ],
             ),
           ),

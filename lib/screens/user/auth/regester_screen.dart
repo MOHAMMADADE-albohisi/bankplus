@@ -1,4 +1,6 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, duplicate_ignore
+
+import 'dart:io';
 
 import 'package:bankplus/database/controllers/user_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
@@ -8,6 +10,7 @@ import 'package:bankplus/model_ui/country.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegesterScreen extends StatefulWidget {
   const RegesterScreen({Key? key}) : super(key: key);
@@ -23,14 +26,18 @@ class _RegesterScreenState extends State<RegesterScreen> {
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
   late TextEditingController _numberAcountTextEditingController;
-  late bool showpasssword = false;
+  late bool showpasssword = true;
   late TapGestureRecognizer richtextcontroller;
   String? _gender;
   String? _selectedcountryid;
 
+  late ImagePicker _imagePicker;
+  XFile? _pickedImage;
+
   @override
   void initState() {
     super.initState();
+    _imagePicker = ImagePicker();
     _idTextEditingController = TextEditingController();
     _mobileTextEditingController = TextEditingController();
     _nameTextEditingController = TextEditingController();
@@ -70,8 +77,9 @@ class _RegesterScreenState extends State<RegesterScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: true,
         title: Text(
-          'تسجيل جديد',
+          'تسجيل عميل جديد',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w400,
             fontSize: 16,
@@ -86,6 +94,10 @@ class _RegesterScreenState extends State<RegesterScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 20),
               child: Center(
+                  child: InkWell(
+                onTap: () {
+                  _pickImage();
+                },
                 child: Stack(
                   children: [
                     Container(
@@ -99,7 +111,18 @@ class _RegesterScreenState extends State<RegesterScreen> {
                         shape: BoxShape.circle,
                         color: Colors.grey,
                       ),
-                      child: Image.asset('images/mohammad.jpeg'),
+                      child: _pickedImage == null
+                          ? IconButton(
+                              onPressed: () => _pickImage(),
+                              icon: const Icon(Icons.camera),
+                              iconSize: 60,
+                            )
+                          : Image.file(
+                              File(_pickedImage!.path),
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                     const PositionedDirectional(
                       bottom: 0,
@@ -121,7 +144,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                     )
                   ],
                 ),
-              ),
+              )),
             ),
           ),
           const SizedBox(height: 16),
@@ -242,7 +265,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
           ),
           const SizedBox(height: 12),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
               children: [
                 Container(
@@ -344,7 +367,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
               controller: _passwordTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
-              obscureText: true,
+              obscureText: showpasssword,
               decoration: InputDecoration(
                 hintText: 'ادخل كلمة المرور',
                 hintStyle: GoogleFonts.nunitoSans(
@@ -356,7 +379,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                     setState(() => {showpasssword = !showpasssword});
                   },
                   icon: Icon(
-                    showpasssword ? Icons.visibility_off : Icons.visibility,
+                    showpasssword ? Icons.visibility : Icons.visibility_off,
                   ),
                 ),
                 hintMaxLines: 1,
@@ -564,24 +587,29 @@ class _RegesterScreenState extends State<RegesterScreen> {
             ),
           ),
           const Divider(),
-          RichText(
-            text: TextSpan(
-              text: 'بالنقر فوق زر تسجيل الدخول ، فإنك توافق على  ',
-              style:
-                  GoogleFonts.nunito(color: Colors.grey.shade700, fontSize: 15),
-              children: [
-                TextSpan(
-                  text: 'الشروط والأحكام وسياسة الخصوصية',
-                  recognizer: richtextcontroller,
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: const Color(0xFFCA50CA),
-                    fontWeight: FontWeight.bold,
-                    decorationStyle: TextDecorationStyle.solid,
-                    decoration: TextDecoration.underline,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 19,
+            ),
+            child: RichText(
+              text: TextSpan(
+                text: 'بالنقر فوق زر تسجيل الدخول ، فإنك توافق على  ',
+                style: GoogleFonts.nunito(
+                    color: Colors.grey.shade700, fontSize: 15),
+                children: [
+                  TextSpan(
+                    text: 'الشروط والأحكام وسياسة الخصوصية',
+                    recognizer: richtextcontroller,
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: const Color(0xFFCA50CA),
+                      fontWeight: FontWeight.bold,
+                      decorationStyle: TextDecorationStyle.solid,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
@@ -596,6 +624,14 @@ class _RegesterScreenState extends State<RegesterScreen> {
     );
   }
 
+  void _pickImage() async {
+    XFile? imageFile =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
+    if (imageFile != null) {
+      setState(() => _pickedImage = imageFile);
+    }
+  }
+
   Future<void> performaLogin() async {
     if (_checkData()) {
       regester();
@@ -608,7 +644,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
         _passwordTextEditingController.text.isNotEmpty &&
         _nameTextEditingController.text.isNotEmpty &&
         _emailTextEditingController.text.isNotEmpty &&
-        _numberAcountTextEditingController.text.isNotEmpty) {
+        _numberAcountTextEditingController.text.isNotEmpty&&_pickedImage !=null) {
       return true;
     }
 
@@ -620,7 +656,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
     processResponse ProcessResponse =
         await UserDbController().register(user: user);
     if (ProcessResponse.success) {
-      Navigator.pop(context);
+      Navigator.pushNamed(context, '/login_screen');
     }
     // ignore: use_build_context_synchronously
     context.ShowSnakBar(
@@ -639,6 +675,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
     user.accountNumber = _numberAcountTextEditingController.text;
     user.branch = _selectedcountryid!;
     user.gender = _gender!;
+    user.userImage = _pickedImage!.path;
 
     return user;
   }

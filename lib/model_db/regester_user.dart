@@ -8,6 +8,7 @@ class User {
   late String accountNumber;
   late String gender;
   late String branch;
+  late String userImage;
 
   static const String tableName = 'user';
 
@@ -23,6 +24,7 @@ class User {
     accountNumber = rowMap['accountNumber'];
     gender = rowMap['gender'];
     branch = rowMap['branch'];
+    userImage = rowMap['userImage'];
   }
 
   Map<String, dynamic> toMap() {
@@ -35,6 +37,7 @@ class User {
     map['accountNumber'] = accountNumber;
     map['gender'] = gender;
     map['branch'] = branch;
+    map['userImage'] = userImage;
     return map;
   }
 }

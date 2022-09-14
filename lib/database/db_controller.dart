@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,6 +35,7 @@ class DbController {
             'password TEXT NOT NULL,'
             'accountNumber TEXT NOT NULL,'
             'gender TEXT NOT NULL,'
+            'userImage TEXT NOT NULL,'
             'branch TEXT NOT NULL '
             ')');
         await database.execute('CREATE TABLE admin('

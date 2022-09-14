@@ -1,8 +1,10 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class order_detailse_screen extends StatelessWidget {
-   order_detailse_screen({
+   const order_detailse_screen({
     required this.titel,
     required this.money,
     Key? key,
@@ -23,7 +25,7 @@ class order_detailse_screen extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                '$titel',
+                titel,
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -32,7 +34,7 @@ class order_detailse_screen extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '$money',
+                money,
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,

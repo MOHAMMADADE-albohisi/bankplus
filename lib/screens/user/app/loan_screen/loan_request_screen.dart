@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bankplus/Prefs/shared_preferences.dart';
 import 'package:bankplus/database/controllers/services_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
@@ -45,6 +47,7 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         title: Text(
           'طلب قرض',
@@ -115,6 +118,7 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
               controller: _infoTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
+              maxLines: 6,
               decoration: InputDecoration(
                 hintText: 'السبب الذي تحتاج من اجله القرض',
                 hintStyle: GoogleFonts.nunitoSans(
@@ -135,7 +139,7 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 400),
+          const SizedBox(height: 214),
           Visibility(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -170,29 +174,28 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
           ),
           const SizedBox(height: 12),
           Center(
-              child: Row(
-            children: [
-              RichText(
-                text: TextSpan(
-                    text: 'بالنقر فوق زر ارسال الطلب ، فإنك توافق على  ',
-                    style: GoogleFonts.nunito(
-                      color: Colors.grey.shade700,
-                    ),
-                    children: [
-                      TextSpan(
-                          text: 'الشروط والأحكام وسياسة الخصوصية',
-                          recognizer: richtextcontroller,
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            color: const Color(0xFFCA50CA),
-                            fontWeight: FontWeight.bold,
-                            decorationStyle: TextDecorationStyle.solid,
-                            decoration: TextDecoration.underline,
-                          ))
-                    ]),
-              ),
-            ],
-          )),
+              child:  Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: RichText(
+                  text: TextSpan(
+                      text: 'بالنقر فوق زر ارسال الطلب ، فإنك توافق على  ',
+                      style: GoogleFonts.nunito(
+                        color: Colors.grey.shade700,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: 'الشروط والأحكام وسياسة الخصوصية',
+                            recognizer: richtextcontroller,
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: const Color(0xFFCA50CA),
+                              fontWeight: FontWeight.bold,
+                              decorationStyle: TextDecorationStyle.solid,
+                              decoration: TextDecoration.underline,
+                            ))
+                      ]),
+                ),
+              ),),
         ],
       ),
     );
@@ -226,11 +229,12 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
     services.amount = int.parse(_valueTextEditingController.text);
     services.info = _infoTextEditingController.text;
     services.typeName = 'test';
-    services.user_name = SharedPrefController().getValueFor(savedata.userName.name);
+    services.user_name =
+        SharedPrefController().getValueFor(savedata.userName.name);
     services.state = 'الطلب في حالة انتظار الموافقة عليه';
     services.infoLoan = '';
     services.document = '';
-    services.date = '${DateTime.now().toString().substring(0, 10)}';
+    services.date = DateTime.now().toString().substring(0, 10);
     bool tests = await ServicesDbController().create(services);
     if (tests == true) {
       Navigator.pushReplacementNamed(context, '/successful_operation_screen');

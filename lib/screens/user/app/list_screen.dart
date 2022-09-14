@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bankplus/Prefs/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +32,7 @@ class _ListScreenState extends State<ListScreen> {
                 'الشكاوي والمقترحات ',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF0000000),
+                  color: const Color(0xFF000000),
                   fontSize: 15,
                 ),
               ),
@@ -56,7 +58,7 @@ class _ListScreenState extends State<ListScreen> {
                 'حول التطبيق',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF0000000),
+                  color: const Color(0xFF000000),
                   fontSize: 15,
                 ),
               ),
@@ -80,7 +82,7 @@ class _ListScreenState extends State<ListScreen> {
                 'الدعم الفني',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF0000000),
+                  color: const Color(0xFF000000),
                   fontSize: 15,
                 ),
               ),
@@ -110,7 +112,7 @@ class _ListScreenState extends State<ListScreen> {
                   'تسجيل الخروج',
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF0000000),
+                    color: const Color(0xFF000000),
                     fontSize: 15,
                   ),
                 ),

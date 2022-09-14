@@ -2,7 +2,6 @@ import 'package:bankplus/model_ui/bn_screen.dart';
 import 'package:bankplus/screens/admin/app/home_admin_screen.dart';
 import 'package:bankplus/screens/admin/app/list_admin_screen.dart';
 import 'package:bankplus/screens/admin/app/mission_screen.dart';
-import 'package:bankplus/screens/admin/app/order_details_screen.dart';
 import 'package:bankplus/screens/user/app/settings/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,10 +10,12 @@ class BottomAdminNavigationScreen extends StatefulWidget {
   const BottomAdminNavigationScreen({Key? key}) : super(key: key);
 
   @override
-  State<BottomAdminNavigationScreen> createState() => _BottomAdminNavigationScreenState();
+  State<BottomAdminNavigationScreen> createState() =>
+      _BottomAdminNavigationScreenState();
 }
 
-class _BottomAdminNavigationScreenState extends State<BottomAdminNavigationScreen> {
+class _BottomAdminNavigationScreenState
+    extends State<BottomAdminNavigationScreen> {
   int _selectedPageIndex = 0;
 
   final List<BnScreen> _screens = <BnScreen>[
@@ -64,8 +65,7 @@ class _BottomAdminNavigationScreenState extends State<BottomAdminNavigationScree
           items: const [
             BottomNavigationBarItem(
               activeIcon: Icon(
-                Icons.request_quote
-                ,
+                Icons.request_quote,
               ),
               icon: Icon(
                 Icons.request_quote,
@@ -78,8 +78,7 @@ class _BottomAdminNavigationScreenState extends State<BottomAdminNavigationScree
               label: 'المهام',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.pivot_table_chart
-              ),
+              activeIcon: Icon(Icons.pivot_table_chart),
               icon: Icon(Icons.pivot_table_chart),
               label: 'احصائيات',
             ),

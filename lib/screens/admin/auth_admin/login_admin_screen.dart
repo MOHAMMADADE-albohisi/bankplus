@@ -1,8 +1,8 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
 import 'package:bankplus/database/controllers/admin_db_controller.dart';
-import 'package:bankplus/database/controllers/services_db_controller.dart';
 import 'package:bankplus/helpers/constexe_extenssion.dart';
 import 'package:bankplus/model_db/process_response.dart';
-import 'package:bankplus/model_db/regester_admin_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +17,7 @@ class LoginAdminScreen extends StatefulWidget {
 class _LoginAdminScreenState extends State<LoginAdminScreen> {
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
-  late bool showpasssword = false;
+  late bool showpasssword = true;
   late TapGestureRecognizer richtextcontroller;
 
   @override
@@ -47,6 +47,7 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: true,
         title: Text(
           'تسجيل الدخول',
           style: GoogleFonts.poppins(
@@ -118,7 +119,7 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
               controller: _passwordTextEditingController,
               keyboardType: TextInputType.text,
               style: GoogleFonts.poppins(),
-              obscureText: true,
+              obscureText: showpasssword,
               decoration: InputDecoration(
                 hintText: 'ادخل كلمة المرور',
                 hintStyle: GoogleFonts.nunitoSans(

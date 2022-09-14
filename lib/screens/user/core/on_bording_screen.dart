@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: camel_case_types
@@ -42,15 +43,15 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                 controller: pagecontroller,
                 onPageChanged: (int colorPage) {
                   setState(() => {
-                    _colorPage = colorPage,
+                        _colorPage = colorPage,
                       });
                 },
                 children: [
                   Column(
                     children: [
-                      const SizedBox(height: 112),
-                      Image.asset('images/1.png', height: 317),
-                      const SizedBox(height: 18),
+                      SizedBox(height: 112.h),
+                      Image.asset('images/1.png', height: 317.h),
+                      SizedBox(height: 18.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -83,9 +84,9 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 18),
+                      SizedBox(height: 18.h),
                       Text(
-                        'تطبيق بنكي بلس ',
+                        'تطبيق بنك بلس ',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -145,7 +146,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        'تطبيق بنكي بلس ',
+                        'تطبيق بنك بلس ',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -205,7 +206,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        'تطبيق بنكي بلس ',
+                        'تطبيق بنك بلس ',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -272,7 +273,8 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/complaints_admin_proposals_screen');
+                      Navigator.pushReplacementNamed(
+                          context, '/complaints_admin_proposals_screen');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.transparent,

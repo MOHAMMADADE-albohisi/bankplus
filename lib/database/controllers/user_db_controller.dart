@@ -50,4 +50,13 @@ class UserDbController {
     return rowMap.isEmpty;
   }
 
+
+
+  @override
+  Future<User?> show() async {
+    int useId = SharedPrefController().getValueFor<int>(savedata.userId.name)!;
+    List<Map<String, dynamic>> rowsMap = await _database
+        .query(User.tableName, where: 'id = ?', whereArgs: [useId]);
+    return rowsMap.isNotEmpty ? User.fromMap(rowsMap.first) : null;
+  }
 }
